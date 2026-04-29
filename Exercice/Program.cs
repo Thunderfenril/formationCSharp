@@ -29,7 +29,24 @@ namespace Exercice
             int res = 1;
             //res = FactorialRecu(5);
             //DisplayPrimes();
-            res = Gcd(216, 152);
+            //res = Gcd(216, 152);
+            //Console.WriteLine(res);
+            /*char[,] morTab = { { 'X', 'O', 'X'}, { '_', 'X', 'X'}, { 'O', 'X', 'O'} };
+            char[,] morTab2 = { { 'X', 'O', 'X' }, { 'O', 'X', 'X' }, { 'O', 'O', 'O' } };
+            char[,] morTab3 = { { 'X', 'O', 'X' }, { 'X', 'X', 'O' }, { 'X', 'O', 'O' } };
+            char[,] morTab4 = { { 'X', 'O', 'X' }, { 'O', 'X', 'O' }, { 'X', 'O', 'O' } };
+            DisplayMorpion(morTab);
+            res = CheckMorpion(morTab);
+            Console.WriteLine(res);
+            res = CheckMorpion(morTab2);
+            Console.WriteLine(res);
+            res = CheckMorpion(morTab3);
+            Console.WriteLine(res);
+            res = CheckMorpion(morTab4);
+            Console.WriteLine(res);*/
+
+            int[] tab = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            res = BinarySearch(tab, 7);
             Console.WriteLine(res);
             Console.ReadKey();
             /*
@@ -266,6 +283,194 @@ namespace Exercice
             }
         }
 
+        public static int SumTab(int[] tab)
+        {
+            int res = 0;
 
+            for(int i = 0; i < tab.Length; i++)
+            {
+                res += tab[i];
+            }
+
+
+            return res;
+        }
+
+        public static int[] OpeTab(int[] tab, char ope, int b)
+        {
+            int[] res = new int[tab.Length];
+
+            if((ope != '+' && ope != '-' && ope != '*') || tab.Length == 0)
+            {
+                return res;
+            }
+
+            for(int i = 0; i < tab.Length; i++)
+            {
+                switch(ope)
+                {
+                    case '+':
+                        res[i] = tab[i] + b;
+                        break;
+                    case '-':
+                        res[i] = tab[i] - b;
+                        break;
+                    case '*':
+                        res[i] = tab[i] * b;
+                        break;
+                }
+            }
+
+
+            return res;
+        }
+
+
+        public static int[] ConcatTab(int[] tab1, int[] tab2)
+        {
+            int[] res = new int[tab1.Length + tab2.Length];
+
+            for(int i = 0; i < tab1.Length + tab2.Length; i++)
+            {
+                if(i < tab1.Length)
+                {
+                    res[i] = tab1[i];
+                } else
+                {
+                    res[i] = tab2[i - tab1.Length];
+                }
+            }
+
+
+            return res;
+        }
+
+        /*
+         * Morpion:
+         * Utilisation de List ou de tableau multidimensionnel
+         * Simple à utiliser, on va avoir des données de taille fixe (zone de 3*3)
+         * Avantage au tableau multidimensionnel, il sera plus simple de mon point de vue de faire les vérifications de victoire
+         */
+        public static void DisplayMorpion(char[,] tab)
+        {
+            for(int i = 0; i < tab.GetLength(0); i++)
+            {
+                for(int j = 0; j < tab.GetLength(1); j++)
+                {
+                    Console.Write(tab[i,j] + " ");
+                }
+                Console.WriteLine();
+            }
+        }
+
+        public static int CheckMorpion(char[,] tab)
+        {
+            int statut = -1;
+            bool ok = false;
+
+            for (int i = 0; i < tab.GetLength(0); i++)
+            {
+                for (int j = 0; j < tab.GetLength(1); j++)
+                {
+
+                    if(tab[i, j] == '_')
+                    {
+                        return statut;
+                    }
+
+                }
+
+                if (tab[i, 0] == tab[i, 1] && tab[i, 0] == tab[i, 2])
+                {
+                    statut = tab[i, 0] == 'X' ? 1 : 2;
+                    ok = true;
+                }
+
+                
+            }
+
+            for(int j = 0; j <tab.GetLength(1); j++)
+            {
+                if (tab[0, j] == tab[1, j] && tab[0, j] == tab[2, j])
+                {
+                    statut = tab[0, j] == 'X' ? 1 : 2;
+                    ok = true;
+                }
+            }
+
+            if (tab[0, 0] == tab[1, 1] && tab[0, 0] == tab[2, 2])
+            {
+                statut = tab[0, 0] == 'X' ? 1 : 2;
+                ok = true;
+            }
+
+            if(!ok)
+            {
+                statut = 0;
+            }
+
+
+            return statut;
+        }
+
+        public static int LinearSearch(int[] tab, int n)
+        {
+            // Dans le pire des cas tab.Length éléments doivent être lus
+            int res = -1;
+
+            if(tab.Length == 0)
+            {
+                return res;
+            }
+
+            for(int i = 0; i < tab.Length; i++)
+            {
+                if (tab[i] == n)
+                {
+                    return i;
+                }
+            }
+
+
+            return res;
+        }
+
+        public static int BinarySearch(int[] tab, int n)
+        {
+            // Dans le pire des cas tab.Length/2 élément doivent être lus
+            int res = -1;
+            bool found = false;
+            int mid = tab.Length / 2;
+            int min = 0;
+            int max = tab.Length;
+
+            if (tab.Length == 0)
+            {
+                return res;
+            }
+
+            while (!found && min < max) {
+
+                if (tab[mid] == n)
+                {
+                    found = true;
+                    res = mid;
+                    break;
+                }
+
+                if (tab[mid] > n)
+                {
+                    max = mid;
+                } else
+                {
+                    min = mid;
+                }
+
+                mid = (min + max) / 2;
+            }
+
+
+            return res;
+        }
     }
 }
