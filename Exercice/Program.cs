@@ -89,8 +89,8 @@ namespace Exercice
             List<QCM> listQuestion = new List<QCM>();
 
             QCM question1 = new QCM(
-                "En quel année à été créé Hololive ?", 
-                new List<string> {"1. 2016", "2. 2017", "3. 2018" },
+                "En quelle année à été créé l'Académie française ?", 
+                new List<string> {"1. 1634", "2. 1734", "3. 1617", "4. 1716" },
                 0,
                 2
                 );
