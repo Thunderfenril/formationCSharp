@@ -27,6 +27,12 @@ namespace Exercice
             */
             //PyramidConstruction(10, false);
             int res = 1;
+            //int[] resTab;
+            /*int[][] resTabTab;
+            int[][] resTabTab2;
+            int[][] resTabTab3;
+            int[][] resTabTab4;
+            int[][] resTabTab5;*/
             //res = FactorialRecu(5);
             //DisplayPrimes();
             //res = Gcd(216, 152);
@@ -45,9 +51,73 @@ namespace Exercice
             res = CheckMorpion(morTab4);
             Console.WriteLine(res);*/
 
-            int[] tab = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-            res = BinarySearch(tab, 7);
+            /*int[] tab = { 1, 2, 3 };
+            int[] tab2 = { -1, -4, 0 };
+            int[] tab3 = { 2, 3, 4 };
+            int[] tab4 = { 1, 2, 3 };
+            int[][] matrixA = { new[] { 1, 2 }, new[] { 4, 6 }, new[] { -1, 8 } };
+            int[][] matrixB = { new[] { -1, 5, 0 }, new[] { -4, 0, 1 } };
+            //res = BinarySearch(tab, 7);
+            resTabTab = BuildingMatrix(tab, tab2);
+            resTabTab2 = BuildingMatrix(tab3, tab4);
+            DisplayMatrix(resTabTab);
+            Console.WriteLine();
+            DisplayMatrix(resTabTab2);
+            Console.WriteLine();
+            resTabTab3 = Addition(resTabTab, resTabTab2);
+            DisplayMatrix(resTabTab3);
+            Console.WriteLine();
+            resTabTab4 = Soustraction(resTabTab, resTabTab2);
+            DisplayMatrix(resTabTab4);
+            Console.WriteLine();
+            resTabTab5 = Multiplication(matrixA, matrixB);
+            DisplayMatrix(resTabTab5);*/
+            /*resTab = ErasthothenesSieve(100);
+            foreach(int item in resTab)
+            {
+                Console.Write(item + " ");
+            }*/
+            //Console.WriteLine(resTabTab);
+
+
+            /*
+         * QCM:
+         * 1) J'utiliserais une nouvelle Classe, que je pourrais mettre dans une Liste
+         *      Données différentes à mettre dans la structure, donc pas possible d'utiliser une Liste ou un tableau
+         *      Donc une Liste d'une classe qui peut contenir les informations.
+         */
+            List<QCM> listQuestion = new List<QCM>();
+
+            QCM question1 = new QCM(
+                "En quel année à été créé Hololive ?", 
+                new List<string> {"1. 2016", "2. 2017", "3. 2018" },
+                0,
+                2
+                );
+            listQuestion.Add(question1);
+
+            QCM question2 = new QCM(
+                "Comment s'appelle l'écriture au-dessus des symboles dans l'alphabet japonais ?",
+                new List<string> { "1. Hiragana", "2. Katakana", "3. Furigana", "4. Kanji"},
+                2,
+                1
+                );
+
+            listQuestion.Add(question2);
+
+            QCM question3 = new QCM(
+                "Réponse à la vie",
+                new List<string> { "1. 42", "2. 36", "3. 67", "4. 30" },
+                2,
+                1
+                );
+
+            listQuestion.Add(question3);
+
+            AskQuestions(listQuestion);
+
             Console.WriteLine(res);
+
             Console.ReadKey();
             /*
             PointCardinal point = PointCardinal.Est;
@@ -471,6 +541,217 @@ namespace Exercice
 
 
             return res;
+        }
+
+        public static void DisplayMatrix(int[][] tab)
+        {
+            for (int i = 0; i < tab.GetLength(0); i++)
+            {
+                for (int j = 0; j < tab[i].GetLength(0); j++)
+                {
+                    Console.Write(tab[i][j] + " ");
+                }
+                Console.WriteLine();
+            }
+        }
+        
+        public static int[][] BuildingMatrix(int[] tab1, int[] tab2)
+        {
+            int[][] res = new int[tab1.Length][];
+
+            for(int i=0; i<tab1.Length; i++)
+            {
+                res[i] = new int[tab2.Length];
+            }
+
+            for(int i = 0; i < tab1.Length; i++)
+            {
+                for(int j = 0; j<tab2.Length; j++)
+                {
+                    res[i][j] = tab1[i] * tab2[j];
+                }
+            }
+
+            return res;
+        }
+
+        public static int[][] Addition(int[][] tab1, int[][] tab2)
+        {
+            int[][] res = new int[tab1.Length][];
+
+            for (int i = 0; i < tab1.Length; i++)
+            {
+                res[i] = new int[tab2.Length];
+            }
+
+            for (int i = 0; i < tab1.Length; i++)
+            {
+                for (int j = 0; j < tab2.Length; j++)
+                {
+                    res[i][j] = tab1[i][j] + tab2[i][j];
+                }
+            }
+
+            return res;
+        }
+
+        public static int[][] Soustraction(int[][] tab1, int[][] tab2)
+        {
+            int[][] res = new int[tab1.Length][];
+
+            for (int i = 0; i < tab1.Length; i++)
+            {
+                res[i] = new int[tab2.Length];
+            }
+
+            for (int i = 0; i < tab1.Length; i++)
+            {
+                for (int j = 0; j < tab2.Length; j++)
+                {
+                    res[i][j] = tab1[i][j] - tab2[i][j];
+                }
+            }
+
+            return res;
+        }
+        public static int[][] Multiplication(int[][] tab1, int[][] tab2)
+        {
+            int[][] res = new int[tab1.Length][];
+            int tab1Row = tab1.Length;
+            int tab1Columnstab2Row = tab1[0].Length;
+            int tab2Columns = tab2[0].Length;
+
+            for (int i = 0; i < tab1Row; i++)
+            {
+                res[i] = new int[tab2Columns];
+            }
+
+            for (int i = 0; i < tab1Row; i++)
+            {
+                for (int j = 0; j < tab2Columns; j++)
+                {
+                    for(int k = 0; k < tab1Columnstab2Row; k++)
+                    {
+                        res[i][j] += tab1[i][k] * tab2[k][j];
+                    }
+                }
+            }
+
+            return res;
+        }
+        public static int[] ErasthothenesSieve(int n)
+        {
+            int taille = n + 1 ;
+            bool[] estPremier = new bool[taille];
+
+            for(int i = 2; i < n; i++)
+            {
+                estPremier[i] = true;
+            }
+
+            for(int i = 2; i * i < n; i++)
+            {
+                if (estPremier[i])
+                {
+                    
+
+                    for(int j = i * i; j < n; j+=i)
+                    {
+                        estPremier[j] = false;
+                    }
+                }
+            }
+
+            List<int> res = new List<int> {  };
+
+            for(int i = 2; i < n; i++)
+            {
+                if (estPremier[i])
+                {
+                    res.Add(i);
+                }
+            }
+
+            return res.ToArray();
+        }
+
+
+        public static bool QcmValidity(QCM qcm)
+        {
+            bool res = true;
+
+            if(qcm.Answer.Count() == 0 || qcm.Weight <= 0)
+            {
+                res = false;
+            }
+
+
+            return res;
+        }
+
+        public static int AskQuestion(QCM qcm)
+        {
+            if(!QcmValidity(qcm))
+            {
+                Console.WriteLine("ArgumentException");
+                return -1;
+            }
+
+            int res = 0;
+            string input = "";
+            int inputNum;
+
+            Console.WriteLine(qcm.Question);
+
+            foreach(string answer in qcm.Answer)
+            {
+                Console.Write(answer + " ");
+            }
+            Console.WriteLine();
+
+            while(true)
+            {
+                Console.Write("Réponse: ");
+                input = Console.ReadLine();
+
+                if(int.TryParse(input, out inputNum))
+                {
+                    inputNum = Convert.ToInt32(input);
+
+                    if(inputNum < 1 || inputNum > qcm.Answer.Count())
+                    {
+                        Console.WriteLine("Réponse invalide");
+                    } else
+                    {
+                        break;
+                    }
+                } else
+                {
+
+                    Console.WriteLine("Entrez un chiffre");
+                }
+            }
+
+            if(inputNum -1 == qcm.Solution)
+            {
+                res = qcm.Weight;
+            }
+
+            return res;
+        }
+
+        public static void AskQuestions(List<QCM> qcms)
+        {
+            int totalRep = 0;
+            int totalMax = 0;
+
+            foreach(QCM qcm in qcms)
+            {
+                totalRep += AskQuestion(qcm);
+                totalMax += qcm.Weight;
+            }
+
+            Console.WriteLine($"Résultat du questionnaire: {totalRep}/{totalMax}");
         }
     }
 }
