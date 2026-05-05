@@ -11,7 +11,7 @@ namespace Labyrinthe
     {
         static void Main(string[] args)
         {
-            Maze maze = new Maze(5, 3);
+            Maze maze = new Maze(50, 50);
 
             maze.Display();
         }

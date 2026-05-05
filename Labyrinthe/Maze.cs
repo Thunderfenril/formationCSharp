@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -18,14 +19,7 @@ namespace Exercices.Labyrinthe
         private readonly int _columnSize;
 
 
-        private readonly char[] tiles =
-            {
-                ' ',
-                '╴', '╶', '─',
-                '╷', '┐', '┌', '┬',
-                '╵', '┘', '└', '┴',
-                '│', '┤', '├', '┼'
-            };
+        private char[] mur = new char[] { ' ', '╵', '╷', '│', '╴', '┘', '┐', '┤', '╶', '└', '┌', '├', '─', '┴', '┬', '┼' };
 
 
         /// <summary>
@@ -53,7 +47,7 @@ namespace Exercices.Labyrinthe
 
         public bool IsOpen(int i, int j, int w)
         {
-            return !_maze[i, j].Walls[w];
+            return _maze[i, j].Walls[w];
         }
 
         public bool IsMazeStart(int i, int j)
@@ -68,7 +62,7 @@ namespace Exercices.Labyrinthe
 
         public void Open(int i, int j, int w)
         {
-            _maze[i, j].Walls[w] = false;
+            _maze[i, j].Walls[w] = true;
             return;
         }
 
@@ -113,7 +107,7 @@ namespace Exercices.Labyrinthe
             {
                 for(int j = 0 ; j < _columnSize; j++)
                 {
-                    _maze[i,j].Walls = new bool[4] { true, true, true, true };
+                    _maze[i,j].Walls = new bool[4] { false, false, false, false };
                     _maze[i, j].IsVisited = false;
                     _maze[i, j].Statut = 0;
                 }
@@ -167,15 +161,18 @@ namespace Exercices.Labyrinthe
                 dRow = tempRow - row;
                 dCol = tempCol - col;
 
+                Console.WriteLine($"Cellule ({row},{col})");
+                Console.WriteLine($"Cellule voisine ({tempRow},{tempCol})");
+
                 if (dRow != 0)
                 {
-                    direction = dRow == -1 ? 2 : 3;
-                    directionNeighbor = dRow == -1 ? 3 : 2;
+                    direction = dRow == -1 ? 0 : 1;
+                    directionNeighbor = dRow == -1 ? 1 : 0;
                 }
                 else
                 {
-                    direction = dCol == -1 ? 1 : 0;
-                    directionNeighbor = dCol == -1 ? 0 : 1;
+                    direction = dCol == -1 ? 2 : 3;
+                    directionNeighbor = dCol == -1 ? 3 : 2;
                 }
 
                 Open(row, col, direction);
@@ -194,13 +191,43 @@ namespace Exercices.Labyrinthe
             {
                 Cell cell = _maze[n, i];
 
+
+                if (i == 0)
+                {
+                    cell.Walls[0] = true;
+                    cell.Walls[1] = true;
+                    cell.Walls[2] = false;
+                }
+
+                if (i == _columnSize - 1)
+                {
+                    cell.Walls[0] = true;
+                    cell.Walls[1] = true;
+                    cell.Walls[3] = false;
+                }
+
+                if (n == 0)
+                {
+                    cell.Walls[0] = false;
+                    if (i > 0) cell.Walls[2] = true;
+                    if (i < _columnSize -1 ) cell.Walls[3] = true;
+                }
+
+
+                if (n == _lineSize - 1)
+                {
+                    cell.Walls[1] = false;
+                    if (i > 0) cell.Walls[2] = true;
+                    if (i < _columnSize - 1) cell.Walls[3] = true;
+                }
+
                 int index =
                     (cell.Walls[0] ? 1 : 0) +
                     (cell.Walls[1] ? 2 : 0) +
                     (cell.Walls[2] ? 4 : 0) +
                     (cell.Walls[3] ? 8 : 0);
 
-                res.Append(tiles[index]);
+                res.Append(mur[index]);
             }
 
             return res.ToString();
@@ -209,18 +236,47 @@ namespace Exercices.Labyrinthe
         public List<string> Display()
         {
             List<string> res = new List<string>();
+            List<string> temp = new List<string>();
+            StringBuilder test = new StringBuilder();
+
+            /*test.Append("┌");
+            for(int i = 0; i < _columnSize; i++)
+            {
+                test.Append("─");
+            }
+            test.Append("┐");
+            res.Add(test.ToString());*/
 
             for(int i = 0; i < _lineSize; i++)
             {
                 res.Add(DisplayLine(i));
             }
 
-            foreach(string line in res)
+            /*test.Clear();
+
+            test.Append("└");
+            for (int i = 0; i < _columnSize; i++)
             {
-                Console.WriteLine(line);
+                test.Append("─");
+            }
+            test.Append("┘");
+            res.Add(test.ToString());*/
+
+            foreach(string t in res)
+            {
+                Console.WriteLine(t);
             }
 
-            Console.ReadKey();
+            using (FileStream file = new FileStream(@"C:\Users\FORMATION\Documents\FormationCSharp\formationCSharp\Labyrinthe\Lab.txt", FileMode.Create, FileAccess.Write))
+            {
+                using(StreamWriter writer = new StreamWriter(file))
+                {
+                    foreach(string line in res)
+                    {
+                        writer.WriteLine(line);
+                    }
+                }
+            }
 
             return res;
         }
