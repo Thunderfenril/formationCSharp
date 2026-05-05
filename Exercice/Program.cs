@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Serie3;
+using Serie4;
 
 namespace Exercice
 {
@@ -86,6 +88,7 @@ namespace Exercice
          *      Données différentes à mettre dans la structure, donc pas possible d'utiliser une Liste ou un tableau
          *      Donc une Liste d'une classe qui peut contenir les informations.
          */
+            /*
             List<QCM> listQuestion = new List<QCM>();
 
             QCM question1 = new QCM(
@@ -149,9 +152,33 @@ namespace Exercice
             CultureInfo culture = new CultureInfo("en-US");  //Utile pour faire de l'affichage selon les conventions d'un pays
             Console.OutputEncoding = Encoding.Unicode;
             Console.WriteLine($"La valeur de Z est: " + z.ToString("C2", culture));
-            Console.WriteLine($"La valeur de z est: {z:000.00}");
+            Console.WriteLine($"La valeur de z est: {z:000.00}");*/
+            string text = "Nikolai, où as tu caché mes dollars ? Je dois aller à l'ouest ! L'armée m'appelle pour aller en Afghanistan";
+            string[] terms = new string[6] {"dollars", "Reagan", "Afghanistan", "ouest", "défaite", "crime" };
+            string test = Serie3.AdministrativeTasks.EliminateSeditiousThoughts(text, terms);
+            Console.WriteLine(test);
+
+            Morse morse = new Morse();
+
+            int res1 = morse.WordsCount("===...=...=.=.=...===......===...=...=.=.=...===......===.=.===.=...=...===.=.===.=...=.=......=...=.=.=...===......=.=.===...===.=......===...=...=.=.=...===");
+            Console.WriteLine(res1);
+            string testM = morse.MorseTranslation("===...=...=.=.=...===......===...=...=.=.=...===......===.=.===.=...=...===.=.===.=...=.=......=...=.=.=...===......=.=.===...===.=......===...=...=.=.=...===");
+
+            string testE = morse.EfficientMorseTranslation("...===....=...=.=..=....===.........===...=...=.=.=...===......===.=.===.=...=...===.=.===.=...=.=......=...=.=.=...===......=.=.===...===.=......===...=...=.=.=...===...");
+
+            string testEn = morse.MorseEncryption("TEST TEST CECI EST UN TEST");
+            string testD = morse.MorseTranslation(testEn);
+
+            Console.WriteLine(testE);
+            Console.WriteLine(testEn);
+            Console.WriteLine(testD);
+            /*
+            Serie4.ClassCouncil.SchoolMeans(@"C:\Users\FORMATION\Documents\FormationCSharp\formationCSharp\Exercice\class.csv", @"C:\Users\FORMATION\Documents\FormationCSharp\formationCSharp\Exercice\classOut.csv");*/
+
+            //Serie4.Morpion.MorpionGame();
+
             Console.ReadKey();
-            */
+            
         }
 
         public static void BasicOperation(int a, int b, char op)

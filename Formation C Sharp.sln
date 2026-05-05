@@ -5,12 +5,6 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exercice", "Exercice\Exercice.csproj", "{E27F197B-2345-4B6E-8949-B3C90A7D7468}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Éléments de solution", "Éléments de solution", "{59B5B55B-FA17-4AF6-B8BD-0F07D338CCD5}"
-	ProjectSection(SolutionItems) = preProject
-		Labyrinth\Cell.cs = Labyrinth\Cell.cs
-		Labyrinth\Maze.cs = Labyrinth\Maze.cs
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Labyrinthe", "Labyrinthe\Labyrinthe.csproj", "{759613CF-AE5C-42F7-8C76-E7305626E0E6}"
 EndProject
 Global

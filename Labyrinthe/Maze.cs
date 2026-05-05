@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace Exercices.Labyrinthe
 {
@@ -15,6 +16,17 @@ namespace Exercices.Labyrinthe
         private readonly int _lineSize;
 
         private readonly int _columnSize;
+
+
+        private readonly char[] tiles =
+            {
+                ' ',
+                '╴', '╶', '─',
+                '╷', '┐', '┌', '┬',
+                '╵', '┘', '└', '┴',
+                '│', '┤', '├', '┼'
+            };
+
 
         /// <summary>
         /// Construction d'une grille de taille n * m
@@ -35,6 +47,8 @@ namespace Exercices.Labyrinthe
             _lineSize = n;
             _columnSize = m;
             _maze = new Cell[n, m];
+
+            Generate();
         }
 
         public bool IsOpen(int i, int j, int w)
@@ -78,7 +92,7 @@ namespace Exercices.Labyrinthe
                     checkRow < numbRow && checkCol < numbCol
                     )
                 {
-                    res.Add(new KeyValuePair<int, int>(i, j));
+                    res.Add(new KeyValuePair<int, int>(checkRow, checkCol));
                 }
             }
 
@@ -99,7 +113,9 @@ namespace Exercices.Labyrinthe
             {
                 for(int j = 0 ; j < _columnSize; j++)
                 {
-                    _maze[i,j] = new Cell();
+                    _maze[i,j].Walls = new bool[4] { true, true, true, true };
+                    _maze[i, j].IsVisited = false;
+                    _maze[i, j].Statut = 0;
                 }
             }
 
@@ -108,6 +124,7 @@ namespace Exercices.Labyrinthe
 
             Creation(randomRow, randomCol, r);
 
+            _maze[randomRow, randomCol].Statut = 1;
 
             return new KeyValuePair<int, int>(randomRow, randomCol);
         }
@@ -168,16 +185,44 @@ namespace Exercices.Labyrinthe
             }
         }
 
-        // Liste des intersections = [' ', '-', ',', '|', '┌', '┐', '└', '┘', '├', '┤', '┬', '┴', '┼']
 
         public string DisplayLine(int n)
         {
-            return string.Empty;
+            StringBuilder res = new StringBuilder();
+
+            for(int i = 0; i < _columnSize; i++)
+            {
+                Cell cell = _maze[n, i];
+
+                int index =
+                    (cell.Walls[0] ? 1 : 0) +
+                    (cell.Walls[1] ? 2 : 0) +
+                    (cell.Walls[2] ? 4 : 0) +
+                    (cell.Walls[3] ? 8 : 0);
+
+                res.Append(tiles[index]);
+            }
+
+            return res.ToString();
         }
 
-        public List<string> Display(int n)
+        public List<string> Display()
         {
-            return new List<string>();
+            List<string> res = new List<string>();
+
+            for(int i = 0; i < _lineSize; i++)
+            {
+                res.Add(DisplayLine(i));
+            }
+
+            foreach(string line in res)
+            {
+                Console.WriteLine(line);
+            }
+
+            Console.ReadKey();
+
+            return res;
         }
     }
 }
