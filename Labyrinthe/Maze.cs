@@ -132,6 +132,7 @@ namespace Exercices.Labyrinthe
             int dCol = 0;
             int direction = 0;
             int directionNeighbor = 0;
+            int cpt = 1;
             List<KeyValuePair<int, int>> neighborList;
 
             _maze[row, col].IsVisited = true;
@@ -151,6 +152,10 @@ namespace Exercices.Labyrinthe
 
                 if(neighborUnvisited.Count == 0)
                 {
+                    if(cpt == _lineSize * _columnSize)
+                    {
+
+                    }
                     return;
                 }
 
@@ -177,6 +182,9 @@ namespace Exercices.Labyrinthe
 
                 Open(row, col, direction);
                 Open(randomNeighbor.Key, randomNeighbor.Value, directionNeighbor);
+
+                cpt++;
+                //Potentiellement, incrémenter un compteur, si dans le return le compteur vaut _lineSize * _columnSize alors c'est la dernière case, case de sortie
 
                 Creation(tempRow, tempCol, r);
             }
