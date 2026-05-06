@@ -60,11 +60,21 @@ namespace Banque
                              */
                             if (transaction.Value.Statut == "OK" && transaction.Value.Recepteur == soldeCompte.Key)
                             {
+                                line.Append($"{soldeCompte.Value + transaction.Value.Montant};");
+                                soldeComptes[soldeCompte.Key] += transaction.Value.Montant;
+                            }
+                            else if(transaction.Value.Statut == "OK" && transaction.Value.Expediteur == soldeCompte.Key)
+                            {
+                                line.Append($"{soldeCompte.Value - transaction.Value.Montant};");
+                                soldeComptes[soldeCompte.Key] -= transaction.Value.Montant;
 
+                            } else if(transaction.Value.Statut == "KO")
+                            {
+                                line.Append($"{soldeCompte.Value};");
                             }
                             else
                             {
-                                line.Append("");
+                                line.Append($"{soldeCompte.Value};");
                             }
                         }
                     }
