@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E27F197B-2345-4B6E-8949-B3C90A7D7468}</ProjectGuid>
+    <ProjectGuid>{2B5F0CB1-EA9C-4216-91EE-1665C77ADEE8}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Exercice</RootNamespace>
-    <AssemblyName>Exercice</AssemblyName>
+    <RootNamespace>Banque</RootNamespace>
+    <AssemblyName>Banque</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,18 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Ex1_AdministrativeTasks.cs" />
-    <Compile Include="Ex2_CesarCode.cs" />
-    <Compile Include="Ex3_MorseCode.cs" />
-    <Compile Include="QCM.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Serie 4\Ex1_ClassCouncil.cs" />
-    <Compile Include="Serie 4\Ex2_Morpion.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Revisions_CSharp.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
