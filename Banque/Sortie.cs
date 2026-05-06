@@ -45,9 +45,9 @@ namespace Banque
 
 
                     // Partie transaction
-                    line.Clear();
                     foreach (KeyValuePair<int, Transaction> transaction in transactions)
                     {
+                        line.Clear();
                         line.Append($"{transaction.Key},{transaction.Value.Statut};");
                         foreach(KeyValuePair<int, int> soldeCompte in soldeComptes)
                         {
@@ -77,6 +77,8 @@ namespace Banque
                                 line.Append($"{soldeCompte.Value};");
                             }
                         }
+                        line.Remove(line.Length - 1, 1); //Retire le dernier ';'
+                        writer.WriteLine(line);
                     }
                 }
             }
