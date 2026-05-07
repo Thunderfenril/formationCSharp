@@ -51,7 +51,7 @@ namespace Banque
             }
 
             //Dans le cas où l'expéditeur est externe, on a n'a pas d'action où l'on va enlever de l'argent
-            if(_expediteur != 0)
+            if(_expediteur != 0 && dictCompte.ContainsKey(_expediteur) && dictCompte.ContainsKey(_recepteur))
             {
 
                 idCarte = dictCompte[_expediteur].IdCarte; //Récupération de l'id de la carte
@@ -132,7 +132,7 @@ namespace Banque
         {
             bool res = false;
 
-            if(dictCompte.ContainsKey(_expediteur) && _recepteur != 0 && dictCompte.ContainsKey(_recepteur) &&
+            if( _recepteur != 0 &&
                         dictCompte[_expediteur].IdCarte != dictCompte[_recepteur].IdCarte &&
                         (dictCompte[_expediteur].Type != "Courant" || dictCompte[_recepteur].Type != "Courant"))
             {

@@ -22,9 +22,9 @@ namespace Banque
             Entree entree = new Entree();
             Sortie sortie = new Sortie();
 
-            dictCarte = entree.EntreeCarte(inputCarte);
-            dictCompte = entree.EntreeCompte(inputCompte, dictCarte);
-            dictTransac = entree.EntreeTransaction(inputTransaction);
+            dictCarte = entree.EntreeCarteCall(inputCarte);
+            dictCompte = entree.EntreeCompteCall(inputCompte, dictCarte);
+            dictTransac = entree.EntreeTransactionCall(inputTransaction);
 
             foreach(KeyValuePair<int, Transaction> transaction in dictTransac)
             {

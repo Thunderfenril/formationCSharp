@@ -46,6 +46,9 @@
     <Compile Include="Carte.cs" />
     <Compile Include="Compte.cs" />
     <Compile Include="Entree.cs" />
+    <Compile Include="EntreeCarte.cs" />
+    <Compile Include="EntreeCompte.cs" />
+    <Compile Include="EntreeTransaction.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sortie.cs" />
