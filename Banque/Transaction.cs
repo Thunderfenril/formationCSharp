@@ -61,11 +61,26 @@ namespace Banque
                  * On va retirer de l'argent du compte que si:
                  * 1.L'expéditeur a assez d'argent sur son compte pour le faire.
                  * 2.L'expéditeur ne vas pas dépasser son plafond avec ce transfert.
+                 * 3.L'expediteur et le recepteur, si différent, doivent être des comptes Courant
+                 * 4.Si l'expéditeur et le récepteur sont les mêmes alors c'est ok
                  * 
                  * On considère qu'un plafond valant 0 signifie qu'il n'y a pas de plafond
                  */
-                if (dictCompte[_expediteur].VerificationSolde(_montant) && ((sommeTransacExpe + _montant) < dictCarte[idCarte].Plafond || dictCarte[idCarte].Plafond == 0))
+                if (
+                    dictCompte[_expediteur].VerificationSolde(_montant) && 
+                    (
+                        (sommeTransacExpe + _montant) < dictCarte[idCarte].Plafond || dictCarte[idCarte].Plafond == 0
+                    ) 
+                    )
                 {
+                    if (_recepteur != 0 && 
+                        dictCompte[_expediteur].IdCarte != dictCompte[_recepteur].IdCarte &&
+                        (dictCompte[_expediteur].Type != "Courant" || dictCompte[_recepteur].Type != "Courant")
+                        )
+                    {
+                        _statut = "KO";
+                        return;
+                    }
                     dictCompte[_expediteur].Solde -= _montant;
                 }
                 else
