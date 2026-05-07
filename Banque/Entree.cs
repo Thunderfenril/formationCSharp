@@ -8,13 +8,6 @@ using System.Threading.Tasks;
 
 namespace Banque
 {
-    public struct EntreeCompteStruct {
-        bool statut;
-        int id;
-        long idCarte;
-        string type;
-        decimal soldeInit;
-    }
     public class Entree
     {
         /// <summary>
