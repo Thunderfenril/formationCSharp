@@ -43,15 +43,14 @@ namespace Banque
             long idCarte;
             decimal sommeTransacExpe;
 
-            // On considère que si le dictionnaire de compte n'a pas l'id de l'expéditeur, on arrête
-            if(!dictCompte.ContainsKey(_expediteur) && _expediteur != 0)
+            if((_expediteur != 0 && !dictCompte.ContainsKey(_expediteur)) || (_recepteur != 0 && !dictCompte.ContainsKey(_recepteur)))
             {
-                _statut = "KO";
+                _statut = "Err"; //Cas spécifique où la transaction est invalide
                 return;
             }
 
             //Dans le cas où l'expéditeur est externe, on a n'a pas d'action où l'on va enlever de l'argent
-            if(_expediteur != 0 && dictCompte.ContainsKey(_expediteur) && dictCompte.ContainsKey(_recepteur))
+            if (_expediteur != 0 )
             {
 
                 idCarte = dictCompte[_expediteur].IdCarte; //Récupération de l'id de la carte
@@ -107,13 +106,6 @@ namespace Banque
 
                 return;
             }
-
-            _statut = "Err"; //Cas spécifique où la transaction est invalide
-            /*
-                Cas transaction invalide:
-                    - Expediteur = 0 && Recepteur inconnu
-                    - Expediteur inconnu && Recepteur = 0
-             */
         }
 
         /// <summary>
