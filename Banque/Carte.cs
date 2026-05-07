@@ -6,20 +6,24 @@ using System.Threading.Tasks;
 
 namespace Banque
 {
-    internal class Carte
+    public class Carte
     {
-        private int _id;
+        private long _id;
         private int _plafond;
         private List<Compte> _compteListe;
+        private List<Transaction> _transactionListe;
 
-        public Carte(int id, int plafond)
+        public Carte(long id, int plafond, List<Compte> compteListe)
         {
             _id = id;
             _plafond = plafond;
+            _compteListe = compteListe;
+            _transactionListe = new List<Transaction>();
         }
 
-        public int Id { get => _id; set => _id = value; }
+        public long Id { get => _id; set => _id = value; }
         public int Plafond { get => _plafond; set => _plafond = value; }
-        internal List<Compte> CompteListe { get => _compteListe; set => _compteListe = value; }
+        public List<Transaction> TransactionListe { get => _transactionListe; set => _transactionListe = value; }
+        public List<Compte> CompteListe { get => _compteListe; set => _compteListe = value; }
     }
 }
