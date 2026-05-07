@@ -10,6 +10,12 @@ namespace Banque
 {
     public class Entree
     {
+        /// <summary>
+        /// Fonction de lecture du fichier d'entrée pour les comptes
+        /// </summary>
+        /// <param name="input">Le chemin où se trouve le fichier</param>
+        /// <param name="dictCarte">Le dictionnaire contenant les cartes</param>
+        /// <returns>Un dictionnaire contenant l'id du compte ainsi que le compte</returns>
         public Dictionary<int, Compte> EntreeCompte(string input, Dictionary<long, Carte> dictCarte)
         {
             Dictionary<int, Compte> res = new Dictionary<int, Compte>();
@@ -65,7 +71,7 @@ namespace Banque
 
 
                                     Compte compte = new Compte(id, idCarte, type, soldeInit);
-                                    dictCarte[idCarte].CompteListe.Add(compte);
+                                    dictCarte[idCarte].CompteListe.Add(compte); // Ajout du compte dans la liste des comptes de la carte
                                     res.Add(id, compte);
                                 }
                             }
@@ -79,7 +85,12 @@ namespace Banque
             return res;
         }
 
-        public Dictionary<long, Carte> EntreeCarte(string input, Dictionary<int, Compte> compteDict)
+        /// <summary>
+        /// Fonction de lecture du fichier d'entrée des cartes
+        /// </summary>
+        /// <param name="input">Chemin vers le fichier d'entrée</param>
+        /// <returns>Un dictionnaire contenant l'id de la carte et la carte</returns>
+        public Dictionary<long, Carte> EntreeCarte(string input)
         {
             Dictionary<long, Carte> res = new Dictionary<long, Carte>();
 
@@ -142,6 +153,11 @@ namespace Banque
             return res;
         }
 
+        /// <summary>
+        /// Fonction de lecture du ficheir d'entrée de transaction
+        /// </summary>
+        /// <param name="input">Chemin ers le fichier d'entrée</param>
+        /// <returns>Un dictionnaire contenant l'id de la transaction et la transaction</returns>
         public Dictionary<int, Transaction> EntreeTransaction(string input)
         {
             Dictionary<int, Transaction> res = new Dictionary<int, Transaction>();
