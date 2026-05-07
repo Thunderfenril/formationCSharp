@@ -10,6 +10,11 @@ namespace Banque
 {
     public class Sortie
     {
+        /// <summary>
+        /// Fonction pour l'affichage en sortie
+        /// </summary>
+        /// <param name="output">Chemin vers le fichier de sortie</param>
+        /// <param name="transactions">Un dictionnaire avec toute les transactions</param>
         public void SortieImpression(string output, Dictionary<int, Transaction> transactions)
         {
             using (FileStream file = new FileStream(output, FileMode.Create, FileAccess.Write))
