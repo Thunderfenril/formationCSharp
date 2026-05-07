@@ -10,10 +10,10 @@ namespace Banque
     {
         static void Main(string[] args)
         {
-            string inputCompte      = @"C:\Users\FORMATION\Documents\FormationCSharp\formationCSharp\Banque\Files\compte.csv";
-            string inputCarte       = @"C:\Users\FORMATION\Documents\FormationCSharp\formationCSharp\Banque\Files\carte.csv";
-            string inputTransaction = @"C:\Users\FORMATION\Documents\FormationCSharp\formationCSharp\Banque\Files\transaction.csv";
-            string output           = @"C:\Users\FORMATION\Documents\FormationCSharp\formationCSharp\Banque\Files\output.csv";
+            string inputCompte      = @"C:\Users\FORMATION\Documents\FormationCSharp\formationCSharp\Banque\Files\compteIA.csv";
+            string inputCarte       = @"C:\Users\FORMATION\Documents\FormationCSharp\formationCSharp\Banque\Files\carteIA.csv";
+            string inputTransaction = @"C:\Users\FORMATION\Documents\FormationCSharp\formationCSharp\Banque\Files\transactionIA.csv";
+            string output           = @"C:\Users\FORMATION\Documents\FormationCSharp\formationCSharp\Banque\Files\outputIA.csv";
 
             Dictionary<int, Compte> dictCompte          = new Dictionary<int, Compte>();
             Dictionary<long, Carte> dictCarte            = new Dictionary<long, Carte>();

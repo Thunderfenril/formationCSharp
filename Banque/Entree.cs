@@ -34,8 +34,11 @@ namespace Banque
                         if (compteVerif.Item1 != false)
                         {
                             Compte compte = new Compte(compteVerif.Item2, compteVerif.Item3, compteVerif.Item4, compteVerif.Item5);
-                            dictCarte[compteVerif.Item3].CompteListe.Add(compte); // Ajout du compte dans la liste des comptes de la carte
-                            res.Add(compte.IdCompte, compte);
+                            if(dictCarte.ContainsKey(compteVerif.Item3))
+                            {
+                                dictCarte[compteVerif.Item3].CompteListe.Add(compte); // Ajout du compte dans la liste des comptes de la carte
+                                res.Add(compte.IdCompte, compte);
+                            }
                         }
                     }
                 }

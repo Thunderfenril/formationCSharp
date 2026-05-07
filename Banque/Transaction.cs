@@ -73,10 +73,8 @@ namespace Banque
                     ) 
                     )
                 {
-                    if (_recepteur != 0 && 
-                        dictCompte[_expediteur].IdCarte != dictCompte[_recepteur].IdCarte &&
-                        (dictCompte[_expediteur].Type != "Courant" || dictCompte[_recepteur].Type != "Courant")
-                        )
+
+                    if (VerificationTransfert(dictCompte, _expediteur, _recepteur))
                     {
                         _statut = "KO";
                         return;
@@ -116,6 +114,33 @@ namespace Banque
                     - Expediteur = 0 && Recepteur inconnu
                     - Expediteur inconnu && Recepteur = 0
              */
+        }
+
+        /// <summary>
+        /// Fonction qui va vérifier si un transfert est ok ou non
+        /// On va ignorer le cas où le recepteur est 0
+        /// On va vérifier que:
+        /// 1. L'expediteur est dans notre dictionnaire
+        /// 2. Le recepteur est dans notre dictionnaire
+        /// 3. Si ils sont differents on va verifier que le transfert se fasse de compte Courant a compte Courant
+        /// </summary>
+        /// <param name="dictCompte">Le dictionnaire de Compte</param>
+        /// <param name="_expediteur">L'id de l'expediteur</param>
+        /// <param name="_recepteur">L'id du receveur</param>
+        /// <returns>Un booleen</returns>
+        public bool VerificationTransfert(Dictionary<int, Compte> dictCompte, int _expediteur, int _recepteur)
+        {
+            bool res = false;
+
+            if(dictCompte.ContainsKey(_expediteur) && _recepteur != 0 && dictCompte.ContainsKey(_recepteur) &&
+                        dictCompte[_expediteur].IdCarte != dictCompte[_recepteur].IdCarte &&
+                        (dictCompte[_expediteur].Type != "Courant" || dictCompte[_recepteur].Type != "Courant"))
+            {
+                res = true;
+            }
+
+
+            return !res;
         }
     }
 }
