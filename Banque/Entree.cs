@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace Banque
 {
+    /// <summary>
+    /// Classe pour dispatcher les lecture dans les bonnes classes
+    /// </summary>
     public class Entree
     {
         public Dictionary<int, Compte> EntreeCompteCall(string input, Dictionary<long, Carte> dictCarte)
