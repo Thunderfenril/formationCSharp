@@ -38,6 +38,10 @@ namespace Banque
             sortie.SortieImpression(output, dictTransac);
         }
 
+        /// <summary>
+        /// Fonction pour imprimer les erreurs
+        /// </summary>
+        /// <param name="errDex">Un dictionnaire qui contient l'id de l'objet et le texte d'erreur attribué</param>
         static void ImpressionErreur(Dictionary<int, string> errDex)
         {
             using (FileStream file = new FileStream(@"C:\Users\FORMATION\Documents\FormationCSharp\formationCSharp\Banque\Files\err.txt", FileMode.Append, FileAccess.Write))

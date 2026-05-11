@@ -76,7 +76,7 @@ namespace Banque
 
                 if (!res.ContainsKey(id) && idCarte.ToString().Length == 16) // Vérification que l'on n'a pas encore le compte et que son id soit assez long
                 {
-                    if (type.ToLower() == "livret" || type.ToLower() == "courant") // Vérification que le type de comtpe soit correct.
+                    if (type.ToLower() == "livret" || type.ToLower() == "courant") // Vérification que le type de compte soit correct.
                     {
 
                         if (data.Length > 3) // Mise en place de la variable soldeInit
@@ -101,8 +101,6 @@ namespace Banque
                             soldeInit = 0;
                         }
 
-
-
                         return (true, id, idCarte, type, soldeInit);
                     }
                 }
@@ -115,6 +113,10 @@ namespace Banque
             return (false, 0, 0, "", 0);
         }
 
+        /// <summary>
+        /// Fonction pour imprimer les erreurs
+        /// </summary>
+        /// <param name="errDex">Un dictionnaire qui contient l'id de l'objet et le texte d'erreur attribué</param>
         public void ImpressionErreur(Dictionary<int, string> errDex)
         {
             using (FileStream file = new FileStream(@"C:\Users\FORMATION\Documents\FormationCSharp\formationCSharp\Banque\Files\err.txt", FileMode.Append, FileAccess.Write))
