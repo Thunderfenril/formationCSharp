@@ -20,6 +20,7 @@ namespace Banque
         public Dictionary<int, Compte> EntreeCompteCSV(string input, Dictionary<long, Carte> dictCarte)
         {
             Dictionary<int, Compte> res = new Dictionary<int, Compte>();
+            Dictionary<int, string> err = new Dictionary<int, string>();
 
             using (FileStream file = new FileStream(input, FileMode.Open, FileAccess.Read))
             {
@@ -30,7 +31,7 @@ namespace Banque
                     while ((line = reader.ReadLine()) != null)
                     {
 
-                        (bool, int, long, string, decimal) compteVerif = CompteVerification(line, res);
+                        (bool, int, long, string, decimal) compteVerif = CompteVerification(line, res, err);
 
                         if (compteVerif.Item1 != false)
                         {
@@ -42,6 +43,8 @@ namespace Banque
                             }
                         }
                     }
+
+                    ImpressionErreur(err);
                 }
             }
 
@@ -54,7 +57,7 @@ namespace Banque
         /// <param name="compteData">Un string venant du csv</param>
         /// <param name="res">Le dictionnaire des comptes</param>
         /// <returns>Un tuple avec les informations du compte et si l'on peut créer ou non le compte</returns>
-        public (bool, int, long, string, decimal) CompteVerification(string compteData, Dictionary<int, Compte> res)
+        public (bool, int, long, string, decimal) CompteVerification(string compteData, Dictionary<int, Compte> res, Dictionary<int, string> err)
         {
             string[] data;
             int id;
@@ -80,7 +83,7 @@ namespace Banque
                         {
                             if (data[3].Contains(',')) //Vérification que le montant initial si il existe, n'a pas de ','
                             {
-
+                                err.Add(id, "Montant avec une ','");
                                 return (false, 0, 0, "", 0);
                             }
 
@@ -103,9 +106,27 @@ namespace Banque
                         return (true, id, idCarte, type, soldeInit);
                     }
                 }
-            }
+                else
+                {
+                    err.Add(id, "Cet id existe déjà");
+                }
+            } 
 
             return (false, 0, 0, "", 0);
+        }
+
+        public void ImpressionErreur(Dictionary<int, string> errDex)
+        {
+            using (FileStream file = new FileStream(@"C:\Users\FORMATION\Documents\FormationCSharp\formationCSharp\Banque\Files\err.txt", FileMode.Append, FileAccess.Write))
+            {
+                using (StreamWriter writer = new StreamWriter(file))
+                {
+                    foreach (KeyValuePair<int, string> err in errDex)
+                    {
+                        writer.WriteLine($"Erreur pour le compte {err.Key}: {err.Value}");
+                    }
+                }
+            }
         }
     }
 }

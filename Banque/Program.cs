@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +18,8 @@ namespace Banque
 
             Dictionary<int, Compte> dictCompte          = new Dictionary<int, Compte>();
             Dictionary<long, Carte> dictCarte            = new Dictionary<long, Carte>();
-            Dictionary<int, Transaction> dictTransac    = new Dictionary<int, Transaction>();
+            Dictionary<int, Transaction> dictTransac = new Dictionary<int, Transaction>();
+            Dictionary<int, string> err = new Dictionary<int, string>();
 
             Entree entree = new Entree();
             Sortie sortie = new Sortie();
@@ -28,10 +30,26 @@ namespace Banque
 
             foreach(KeyValuePair<int, Transaction> transaction in dictTransac)
             {
-                transaction.Value.ExecTransaction(dictCompte, dictCarte);
+                transaction.Value.ExecTransaction(dictCompte, dictCarte, err);
             }
 
+            ImpressionErreur(err);
+
             sortie.SortieImpression(output, dictTransac);
+        }
+
+        static void ImpressionErreur(Dictionary<int, string> errDex)
+        {
+            using (FileStream file = new FileStream(@"C:\Users\FORMATION\Documents\FormationCSharp\formationCSharp\Banque\Files\err.txt", FileMode.Append, FileAccess.Write))
+            {
+                using (StreamWriter writer = new StreamWriter(file))
+                {
+                    foreach (KeyValuePair<int, string> err in errDex)
+                    {
+                        writer.WriteLine($"Erreur pour l'execution de la transaction {err.Key}: {err.Value}");
+                    }
+                }
+            }
         }
     }
 }

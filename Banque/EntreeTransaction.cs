@@ -18,6 +18,7 @@ namespace Banque
         public Dictionary<int, Transaction> EntreeTransactionCSV(string input)
         {
             Dictionary<int, Transaction> res = new Dictionary<int, Transaction>();
+            Dictionary<int, string> err = new Dictionary<int, string>();
 
             using (FileStream file = new FileStream(input, FileMode.Open, FileAccess.Read))
             {
@@ -27,7 +28,7 @@ namespace Banque
 
                     while ((line = reader.ReadLine()) != null)
                     {
-                        (bool, int, DateTime, decimal, int, int) verificationTrans = TransactionVerification(line, res);
+                        (bool, int, DateTime, decimal, int, int) verificationTrans = TransactionVerification(line, res, err);
 
                         if (verificationTrans.Item1)
                         {
@@ -35,6 +36,8 @@ namespace Banque
                             res.Add(verificationTrans.Item2, transac);
                         }
                     }
+
+                    ImpressionErreur(err);
                 }
             }
 
@@ -50,7 +53,7 @@ namespace Banque
         /// <param name="transactionData">Un string venant du csv</param>
         /// <param name="res">Le dictionaire des transactions</param>
         /// <returns>Un tuple avec les informations d'une transaction et si l'on peut la créer ou non</returns>
-        public (bool, int, DateTime, decimal, int, int) TransactionVerification(string transactionData, Dictionary<int, Transaction> res)
+        public (bool, int, DateTime, decimal, int, int) TransactionVerification(string transactionData, Dictionary<int, Transaction> res, Dictionary<int, string> err)
         {
             string[] data;
             int id;
@@ -73,11 +76,13 @@ namespace Banque
                 }
                 else
                 {
+                    err.Add(id, $"Pas le bon format de date {data[1]}");
                     return (false, 0, DateTime.MinValue, 0, 0, 0);
                 }
 
                 if (data[2].Contains(','))  // Vérification que le montant initial si il existe, n'a pas de ','
                 {
+                    err.Add(id, $"Le montant contient une ',' {data[2]}");
                     return (false, 0, DateTime.MinValue, 0, 0, 0);
                 }
 
@@ -92,9 +97,26 @@ namespace Banque
                         return (true, id, date, montant, expediteur, recepteur);
 
                     }
+                } else
+                {
+                    err.Add(id, $"id déjà présent");
                 }
             }
             return (false, 0, DateTime.MinValue, 0, 0, 0);
+        }
+
+        public void ImpressionErreur(Dictionary<int, string> errDex)
+        {
+            using (FileStream file = new FileStream(@"C:\Users\FORMATION\Documents\FormationCSharp\formationCSharp\Banque\Files\err.txt", FileMode.Append, FileAccess.Write))
+            {
+                using (StreamWriter writer = new StreamWriter(file))
+                {
+                    foreach (KeyValuePair<int, string> err in errDex)
+                    {
+                        writer.WriteLine($"Erreur pour la transaction {err.Key}: {err.Value}");
+                    }
+                }
+            }
         }
     }
 }

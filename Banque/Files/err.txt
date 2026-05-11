@@ -1,0 +1,41 @@
+Erreur pour la carte 4567890123456789: Le plafond ne respecte pas les délimitations 250
+Erreur pour la carte 6789012345678901: Le plafond ne respecte pas les délimitations -100
+Erreur pour la carte 7890123456789012: Le plafond ne respecte pas les délimitations 0
+Erreur pour la carte 8901234567890123: Le plafond ne respecte pas les délimitations 999999
+Erreur pour la carte 9999888877776666: Le plafond ne respecte pas les délimitations 150
+Erreur pour la transaction 8: Pas le bon format de date 32/13/2026 25:61:61
+Erreur pour la transaction 9: Pas le bon format de date 2026-05-04 12:00:00
+Erreur pour l'execution de la transaction 1: Transfert entre compte interdis
+Erreur pour l'execution de la transaction 5: Un recepteur ou expediteur n'est pas dans la liste. Expediteur: 5, Recepteur: 4
+Erreur pour l'execution de la transaction 6: Un recepteur ou expediteur n'est pas dans la liste. Expediteur: 4, Recepteur: 0
+Erreur pour l'execution de la transaction 7: Un recepteur ou expediteur n'est pas dans la liste. Expediteur: 0, Recepteur: 7
+Erreur pour l'execution de la transaction 11: Un recepteur ou expediteur n'est pas dans la liste. Expediteur: 8, Recepteur: 9
+Erreur pour l'execution de la transaction 12: Pas assez sur le compte, ou plafond dépassé.
+Solde: 0
+Montant: 1,00
+Plafond: 0
+Dépense actuel: 0
+Erreur pour l'execution de la transaction 13: Transfert entre compte interdis
+Erreur pour l'execution de la transaction 14: Un recepteur ou expediteur n'est pas dans la liste. Expediteur: 0, Recepteur: 6
+Erreur pour l'execution de la transaction 15: Un recepteur ou expediteur n'est pas dans la liste. Expediteur: 8, Recepteur: 0
+Erreur pour l'execution de la transaction 16: Transfert entre compte interdis
+Erreur pour l'execution de la transaction 17: Transfert entre compte interdis
+Erreur pour l'execution de la transaction 18: Un recepteur ou expediteur n'est pas dans la liste. Expediteur: 13, Recepteur: 14
+Erreur pour l'execution de la transaction 19: Un recepteur ou expediteur n'est pas dans la liste. Expediteur: 14, Recepteur: 15
+Erreur pour l'execution de la transaction 21: Un recepteur ou expediteur n'est pas dans la liste. Expediteur: 0, Recepteur: 16
+Erreur pour l'execution de la transaction 22: Un recepteur ou expediteur n'est pas dans la liste. Expediteur: 16, Recepteur: 17
+Erreur pour l'execution de la transaction 23: Un recepteur ou expediteur n'est pas dans la liste. Expediteur: 17, Recepteur: 18
+Erreur pour l'execution de la transaction 24: Un recepteur ou expediteur n'est pas dans la liste. Expediteur: 18, Recepteur: 1
+Erreur pour l'execution de la transaction 26: Transfert entre compte interdis
+Erreur pour l'execution de la transaction 27: Un recepteur ou expediteur n'est pas dans la liste. Expediteur: 3, Recepteur: 6
+Erreur pour l'execution de la transaction 28: Un recepteur ou expediteur n'est pas dans la liste. Expediteur: 7, Recepteur: 8
+Erreur pour l'execution de la transaction 29: Pas assez sur le compte, ou plafond dépassé.
+Solde: 0
+Montant: 222,22
+Plafond: 0
+Dépense actuel: 0
+Erreur pour l'execution de la transaction 30: Pas assez sur le compte, ou plafond dépassé.
+Solde: 320,10
+Montant: 606,06
+Plafond: 750
+Dépense actuel: 0

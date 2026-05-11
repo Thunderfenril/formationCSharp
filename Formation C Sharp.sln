@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Labyrinthe", "Labyrinthe\La
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Banque", "Banque\Banque.csproj", "{2B5F0CB1-EA9C-4216-91EE-1665C77ADEE8}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfApp", "WpfApp\WpfApp.csproj", "{BBB9640A-32F0-4F50-8BA3-3B29D049C4BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Or", "Or\Or.csproj", "{8E58D626-3838-4CDA-8C69-B9C0386E35D2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{2B5F0CB1-EA9C-4216-91EE-1665C77ADEE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B5F0CB1-EA9C-4216-91EE-1665C77ADEE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B5F0CB1-EA9C-4216-91EE-1665C77ADEE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBB9640A-32F0-4F50-8BA3-3B29D049C4BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBB9640A-32F0-4F50-8BA3-3B29D049C4BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBB9640A-32F0-4F50-8BA3-3B29D049C4BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBB9640A-32F0-4F50-8BA3-3B29D049C4BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E58D626-3838-4CDA-8C69-B9C0386E35D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E58D626-3838-4CDA-8C69-B9C0386E35D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E58D626-3838-4CDA-8C69-B9C0386E35D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E58D626-3838-4CDA-8C69-B9C0386E35D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -17,6 +17,7 @@ namespace Banque
         public Dictionary<long, Carte> EntreeCarteCSV(string input)
         {
             Dictionary<long, Carte> res = new Dictionary<long, Carte>();
+            Dictionary<long, string> err = new Dictionary<long, string>();
 
             using (FileStream file = new FileStream(input, FileMode.Open, FileAccess.Read))
             {
@@ -26,7 +27,7 @@ namespace Banque
 
                     while ((line = reader.ReadLine()) != null)
                     {
-                        (bool, long, int) verification = CarteVerification(line, res);
+                        (bool, long, int) verification = CarteVerification(line, res, err);
 
                         if (verification.Item1)
                         {
@@ -36,6 +37,8 @@ namespace Banque
                             res.Add(verification.Item2, carte);
                         }
                     }
+
+                    ImpressionErreur(err);
                 }
             }
 
@@ -48,7 +51,7 @@ namespace Banque
         /// <param name="carteData">Un string venant du csv</param>
         /// <param name="res">Le dictionaire des cartes</param>
         /// <returns>Un tuple avec les informations d'une carte et si l'on peut la créer ou non</returns>
-        public (bool, long, int) CarteVerification(string carteData, Dictionary<long, Carte> res)
+        public (bool, long, int) CarteVerification(string carteData, Dictionary<long, Carte> res, Dictionary<long, string> err)
         {
             long id;
             int plafond;
@@ -75,6 +78,7 @@ namespace Banque
                             plafond = int.Parse(data[1]);
                             if (plafond < 500 || plafond > 3000)
                             {
+                                err.Add(id, $"Le plafond ne respecte pas les délimitations {plafond}");
                                 return (false, 0, 0);
                             }
                         }
@@ -88,13 +92,27 @@ namespace Banque
                 }
                 else
                 {
-
+                    err.Add(id, "Cet id existe déjà");
                     return (false, 0, 0);
                 }
             }
             else
             {
                 return (false, 0, 0);
+            }
+        }
+
+        public void ImpressionErreur(Dictionary<long, string> errDex)
+        {
+            using(FileStream file = new FileStream(@"C:\Users\FORMATION\Documents\FormationCSharp\formationCSharp\Banque\Files\err.txt", FileMode.Append, FileAccess.Write))
+            {
+                using(StreamWriter writer = new StreamWriter(file))
+                {
+                    foreach(KeyValuePair<long, string> err in errDex)
+                    {
+                        writer.WriteLine($"Erreur pour la carte {err.Key}: {err.Value}");
+                    }
+                }
             }
         }
     }

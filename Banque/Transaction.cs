@@ -38,13 +38,14 @@ namespace Banque
         /// </summary>
         /// <param name="dictCompte">Dictionnaire des comptes</param>
         /// <param name="dictCarte">Dictionnaire des cartes</param>
-        public void ExecTransaction(Dictionary<int, Compte> dictCompte, Dictionary<long, Carte> dictCarte)
+        public void ExecTransaction(Dictionary<int, Compte> dictCompte, Dictionary<long, Carte> dictCarte, Dictionary<int, string> err)
         {
             long idCarte;
             decimal sommeTransacExpe;
 
             if((_expediteur != 0 && !dictCompte.ContainsKey(_expediteur)) || (_recepteur != 0 && !dictCompte.ContainsKey(_recepteur)))
             {
+                err.Add(_id, $"Un recepteur ou expediteur n'est pas dans la liste. Expediteur: {_expediteur}, Recepteur: {_recepteur}");
                 _statut = "Err"; //Cas spécifique où la transaction est invalide
                 return;
             }
@@ -75,6 +76,7 @@ namespace Banque
 
                     if (VerificationTransfert(dictCompte, _expediteur, _recepteur))
                     {
+                        err.Add(_id, "Transfert entre compte interdis");
                         _statut = "KO";
                         return;
                     }
@@ -82,6 +84,8 @@ namespace Banque
                 }
                 else
                 {
+                    err.Add(_id, $"Pas assez sur le compte, ou plafond dépassé.\nSolde: {dictCompte[_expediteur].Solde}\nMontant: {_montant}" +
+                        $"\nPlafond: {dictCarte[idCarte].Plafond}\nDépense actuel: {sommeTransacExpe}");
                     _statut = "KO";
                     return;
                 }
@@ -132,7 +136,7 @@ namespace Banque
             }
 
 
-            return !res;
+            return res;
         }
     }
 }
