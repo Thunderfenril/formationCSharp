@@ -43,9 +43,16 @@ namespace Banque
             long idCarte;
             decimal sommeTransacExpe;
 
-            if((_expediteur != 0 && !dictCompte.ContainsKey(_expediteur)) || (_recepteur != 0 && !dictCompte.ContainsKey(_recepteur)))
+            if(_expediteur != 0 && !dictCompte.ContainsKey(_expediteur)) 
             {
-                err.Add(_id, $"Un recepteur ou expediteur n'est pas dans la liste. Expediteur: {_expediteur}, Recepteur: {_recepteur}");
+                err.Add(_id, $"L'expediteur n'est pas dans la liste des comptes. Expediteur: {_expediteur}");
+                _statut = "Err"; //Cas spécifique où la transaction est invalide
+                return;
+            }
+
+            if (_recepteur != 0 && !dictCompte.ContainsKey(_recepteur))
+            {
+                err.Add(_id, $"Le recepteur n'est pas dans la liste des comptes. Recepteur: {_recepteur}");
                 _statut = "Err"; //Cas spécifique où la transaction est invalide
                 return;
             }
