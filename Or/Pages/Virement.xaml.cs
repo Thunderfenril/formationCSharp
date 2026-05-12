@@ -65,12 +65,27 @@ namespace Or.Pages
                 }
                 else
                 {
-                    MessageBox.Show("Opération de virement non autorisé");
+
+                    decimal temp = CartePorteur.Historique.Where(x => (x.Horodatage > t.Horodatage.AddDays(-10)) && CartePorteur.ListComptesId.Contains(x.Expediteur)).Select(x => x).ToList().Sum(x => x.Montant);
+
+
+                    if (montant < 0)
+                    {
+                        Error.TypeErreur("virement", "Montant0");
+                    } else if ((temp + montant) > CartePorteur.Plafond)
+                    {
+                        Error.TypeErreur("virement", "Plafond");
+                    } else
+                    {
+                        Error.TypeErreur("virement", "Transfert");
+                    }
+
+                    
                 }
             }
             else
             {
-                MessageBox.Show("Montant invalide");
+                Error.TypeErreur("virement", "Montant");
             }
 
         }

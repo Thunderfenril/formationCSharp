@@ -15,6 +15,13 @@ namespace Or.Pages
         {
             InitializeComponent();
             Carte c = SqlRequests.InfosCarte(numCarte);
+
+            if(c == null)
+            {
+                Error.TypeErreur("accueil", "Carte");
+
+                return;
+            }
             
             Numero.Text = c.Id.ToString();
             Prenom.Text = c.PrenomClient;

@@ -13,26 +13,34 @@ namespace Or.Business
         MontantDepassePlafond = 1,
         SoldeInsufissant = 2,
         TransfertInterdit = 3,
-        CarteInconnu = 4
+        CarteInconnu = 4,
+        MontantInf = 5
     }
 
     public static class Error
     {
-        public static void TypeErreur(string origine, string message, MessageBoxButton button, MessageBoxImage image)
+        public static void TypeErreur(string origine, string message)
         {
-            switch(origine)
+            switch(origine.ToLower())
             {
-                case "Accueil":
-                    break;
-
-                case "Depot":
-                    if (message == "Montant")
+                case "accueil":
+                    if(message == "Carte")
                     {
-                        Label(ErrorEnum.MontantInvalide, "dépôt");
+                        Label(ErrorEnum.CarteInconnu, "accueil");
                     }
                     break;
 
-                case "Virement":
+                case "depot":
+                    if (message == "Montant")
+                    {
+                        Label(ErrorEnum.MontantInvalide, "dépôt");
+                    } else if (message == "Montant0")
+                    {
+                        Label(ErrorEnum.MontantInf, "dépôt");
+                    }
+                    break;
+
+                case "virement":
                     if(message == "Solde")
                     {
                         Label(ErrorEnum.SoldeInsufissant, "viremment");
@@ -46,15 +54,27 @@ namespace Or.Business
                     {
                         Label(ErrorEnum.TransfertInterdit, "viremment");
                     }
+                    else if (message == "Montant0")
+                    {
+                        Label(ErrorEnum.MontantInf, "dépôt");
+                    }
                     break;
 
-                case "Retrait":
+                case "retrait":
                     if (message == "Solde")
                     {
                         Label(ErrorEnum.SoldeInsufissant, "retrait");
                     } else if (message == "Montant")
                     {
                         Label(ErrorEnum.MontantInvalide, "retrait");
+                    }
+                    else if (message == "Montant0")
+                    {
+                        Label(ErrorEnum.MontantInf, "dépôt");
+                    }
+                    if (message == "Plafond")
+                    {
+                        Label(ErrorEnum.MontantDepassePlafond, "viremment");
                     }
                     break;
 
@@ -84,6 +104,9 @@ namespace Or.Business
                     break;
                 case ErrorEnum.CarteInconnu:
                     res = "La carte entrée n'a pas été reconnus.";
+                    break;
+                case ErrorEnum.MontantInf:
+                    res = "Le montant indiqué est inférieur à 0. Ceci est interdis";
                     break;
             }
 

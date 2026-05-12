@@ -64,7 +64,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Business\ErrorConverter.cs" />
     <Compile Include="Business\EuroConverter.cs" />
     <Compile Include="Business\IsNegativeConverter.cs" />
     <Compile Include="Business\SqlRequests.cs" />
@@ -109,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Compte.cs" />
+    <Compile Include="Business\Error.cs" />
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="Pages\Accueil.xaml.cs">
       <DependentUpon>Accueil.xaml</DependentUpon>

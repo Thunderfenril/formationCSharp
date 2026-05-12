@@ -1,6 +1,9 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
+using Or.Business;
+
 
 namespace Or.Pages
 {
@@ -19,11 +22,18 @@ namespace Or.Pages
             bool estCarteValide = long.TryParse(NumeroCarte.Text, out long result);
             if (estCarteValide)
             {
-                NavigationService.Navigate(new ConsultationCarte(result));
+                ConsultationCarte cc = new ConsultationCarte(result);
+
+                if(cc.Prenom.Text == "")
+                {
+                    return;
+                }
+
+                NavigationService.Navigate(cc);
             }
             else
             {
-                MessageBox.Show("Numéro de carte invalide", "Saisie invalide", MessageBoxButton.OK, MessageBoxImage.Error);
+                Error.TypeErreur("accueil", "Carte");
             }
         }
 

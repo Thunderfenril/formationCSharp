@@ -48,12 +48,12 @@ namespace Or.Pages
                 }
                 else
                 {
-                    MessageBox.Show("Opération refusée");
+                    Error.TypeErreur("depot", "Montant0");
                 }
             }
             else
             {
-                MessageBox.Show("Montant invalide");
+                Error.TypeErreur("depot", "Montant");
             }
         }
     }

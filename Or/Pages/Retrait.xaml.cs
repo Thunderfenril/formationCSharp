@@ -54,12 +54,12 @@ namespace Or.Pages
                 }
                 else
                 {
-                    MessageBox.Show("Opération de retrait non authorisée");
+                    Error.TypeErreur("retrait", "Plafond");
                 }
             }
             else
             {
-                MessageBox.Show("Montant invalide");
+                Error.TypeErreur("Retrait", "Montant");
             }
         }
 
@@ -71,7 +71,8 @@ namespace Or.Pages
             if(CartePorteur.Plafond != 0)
             {
                 List<Transaction> retraitsHisto = CartePorteur.Historique.Where(x => (x.Horodatage > date.AddDays(-10)) && CartePorteur.ListComptesId.Contains(x.Expediteur)).Select(x => x).ToList();
-                res = retraitsHisto.Sum(x => x.Montant) != 0 ? retraitsHisto.Sum(x => x.Montant) - CartePorteur. Plafond : CartePorteur.Plafond;
+                decimal somme = retraitsHisto.Sum(x => x.Montant);
+                res = somme != 0 ? CartePorteur. Plafond - somme : CartePorteur.Plafond;
             } else
             {
                 res = decimal.MaxValue;
