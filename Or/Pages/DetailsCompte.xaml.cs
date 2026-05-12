@@ -44,8 +44,9 @@ namespace Or.Pages
             {
                 double totalWidth = listView.ActualWidth - SystemParameters.VerticalScrollBarWidth;
                 gridView.Columns[0].Width = totalWidth * 0.10; // 10%
-                gridView.Columns[1].Width = totalWidth * 0.45; // 40%
-                gridView.Columns[2].Width = totalWidth * 0.45; // 20%
+                gridView.Columns[1].Width = totalWidth * 0.20; // 20%
+                gridView.Columns[2].Width = totalWidth * 0.40; // 40%
+                gridView.Columns[3].Width = totalWidth * 0.30; // 30%
             }
         }
     }

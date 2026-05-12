@@ -39,6 +39,7 @@
             <ListView.Resources>
                 <ec:EuroConverter x:Key="EuroConverter"/>
                 <ec:IsNegativeConverter x:Key="IsNegativeConverter"/>
+                <ec:TypeTransacConverter x:Key="TypeTransacConverter"/>
             </ListView.Resources>
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
@@ -60,7 +61,17 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
 
-                    <GridViewColumn Header="Date" Width="200">
+                    <GridViewColumn Header="Type" Width="50">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBlock Text="{Binding Type, Converter={StaticResource TypeTransacConverter}}" TextAlignment="Center" />
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="Date" Width="100">
 
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>

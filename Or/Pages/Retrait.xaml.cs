@@ -28,6 +28,7 @@ namespace Or.Pages
             List<int> cpts = SqlRequests.ListeComptesAssociesCarte(numCarte).Select(x => x.Id).ToList();
             CartePorteur.AlimenterHistoriqueEtListeComptes(transac, cpts);
 
+            PlafondMaxRetraitPossible.Text = SoldeCarteActuel(DateTime.Now).ToString("C2");
             PlafondMaxRetrait.Text = CartePorteur.Plafond.ToString("C2");
             Solde.Text = ComptePorteur.Solde.ToString("C2");
         }
@@ -60,6 +61,23 @@ namespace Or.Pages
             {
                 MessageBox.Show("Montant invalide");
             }
+        }
+
+
+        private decimal SoldeCarteActuel(DateTime date)
+        {
+            decimal res = 0;
+
+            if(CartePorteur.Plafond != 0)
+            {
+                List<Transaction> retraitsHisto = CartePorteur.Historique.Where(x => (x.Horodatage > date.AddDays(-10)) && CartePorteur.ListComptesId.Contains(x.Expediteur)).Select(x => x).ToList();
+                res = retraitsHisto.Sum(x => x.Montant) != 0 ? retraitsHisto.Sum(x => x.Montant) - CartePorteur. Plafond : CartePorteur.Plafond;
+            } else
+            {
+                res = decimal.MaxValue;
+            }
+
+            return res;
         }
     }
 }

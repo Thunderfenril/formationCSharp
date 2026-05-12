@@ -420,6 +420,7 @@ namespace Or.Business
         {
             string dossierRef = Directory.GetCurrentDirectory();
             string dossierProjet = Path.GetFullPath(Path.Combine(dossierRef, @"..\..\.."));
+            Console.WriteLine(dossierProjet);
 
             string chemin = Path.Combine(dossierProjet, fileDb);
             return "Data Source=" + chemin;
