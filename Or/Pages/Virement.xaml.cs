@@ -66,13 +66,13 @@ namespace Or.Pages
                 else
                 {
 
-                    decimal temp = CartePorteur.Historique.Where(x => (x.Horodatage > t.Horodatage.AddDays(-10)) && CartePorteur.ListComptesId.Contains(x.Expediteur)).Select(x => x).ToList().Sum(x => x.Montant);
+                    decimal somme = CartePorteur.Historique.Where(x => (x.Horodatage > t.Horodatage.AddDays(-10)) && CartePorteur.ListComptesId.Contains(x.Expediteur)).Select(x => x).ToList().Sum(x => x.Montant);
 
 
                     if (montant < 0)
                     {
                         Error.TypeErreur("virement", "Montant0");
-                    } else if ((temp + montant) > CartePorteur.Plafond)
+                    } else if ((somme + montant) > CartePorteur.Plafond)
                     {
                         Error.TypeErreur("virement", "Plafond");
                     } else
