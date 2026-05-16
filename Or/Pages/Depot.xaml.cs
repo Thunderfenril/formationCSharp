@@ -46,14 +46,15 @@ namespace Or.Pages
 
                     OnReturn(null);
                 }
+                // OK
                 else
                 {
-                    Error.TypeErreur("depot", "Montant0");
+                    Error.TypeErreur(Tools.EcranDepot, "Montant0");
                 }
             }
             else
             {
-                Error.TypeErreur("depot", "Montant");
+                Error.TypeErreur(Tools.EcranDepot, "Montant");
             }
         }
     }

@@ -40,6 +40,7 @@ namespace Or.Pages
 
         private void ValiderRetrait_Click(object sender, RoutedEventArgs e)
         {
+            // Bonne cinématique
             if (decimal.TryParse(Montant.Text.Replace(".", ",").Trim(new char[] { '€', ' ' }), out decimal montant) && montant > 0)
             {
                 //Compte fictif pour permettre la transaction
@@ -54,12 +55,12 @@ namespace Or.Pages
                 }
                 else
                 {
-                    Error.TypeErreur("retrait", "Plafond");
+                    Error.TypeErreur(Tools.EcranRetrait, "Plafond");
                 }
             }
             else
             {
-                Error.TypeErreur("Retrait", "Montant");
+                Error.TypeErreur(Tools.EcranRetrait, "Montant");
             }
         }
 

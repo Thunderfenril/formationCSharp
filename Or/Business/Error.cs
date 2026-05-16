@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace Or.Business
@@ -17,20 +13,22 @@ namespace Or.Business
         MontantInf = 5
     }
 
+    // Classe OK
     public static class Error
     {
         public static void TypeErreur(string origine, string message)
         {
+            // Intéressant d'avoir centralisé la gestion des erreurs par code erreur et par écran
             switch(origine.ToLower())
             {
-                case "accueil":
+                case Tools.EcranAccueil:
                     if(message == "Carte")
                     {
                         Label(ErrorEnum.CarteInconnu, "accueil");
                     }
                     break;
 
-                case "depot":
+                case Tools.EcranDepot:
                     if (message == "Montant")
                     {
                         Label(ErrorEnum.MontantInvalide, "dépôt");
@@ -40,19 +38,19 @@ namespace Or.Business
                     }
                     break;
 
-                case "virement":
+                case Tools.EcranVirement:
                     if(message == "Solde")
                     {
-                        Label(ErrorEnum.SoldeInsufissant, "viremment");
+                        Label(ErrorEnum.SoldeInsufissant, "virement");
                     } else if (message == "Plafond")
                     {
-                        Label(ErrorEnum.MontantDepassePlafond, "viremment");
+                        Label(ErrorEnum.MontantDepassePlafond, "virement");
                     } else if(message == "Montant")
                     {
-                        Label(ErrorEnum.MontantInvalide, "viremment");
+                        Label(ErrorEnum.MontantInvalide, "virement");
                     } else if(message == "Transfert")
                     {
-                        Label(ErrorEnum.TransfertInterdit, "viremment");
+                        Label(ErrorEnum.TransfertInterdit, "virement");
                     }
                     else if (message == "Montant0")
                     {
@@ -60,7 +58,7 @@ namespace Or.Business
                     }
                     break;
 
-                case "retrait":
+                case Tools.EcranRetrait:
                     if (message == "Solde")
                     {
                         Label(ErrorEnum.SoldeInsufissant, "retrait");
@@ -74,7 +72,7 @@ namespace Or.Business
                     }
                     if (message == "Plafond")
                     {
-                        Label(ErrorEnum.MontantDepassePlafond, "viremment");
+                        Label(ErrorEnum.MontantDepassePlafond, "virement");
                     }
                     break;
 
@@ -88,13 +86,14 @@ namespace Or.Business
         {
             string res = "";
 
+            // Attention aux fautes d'orthographe
             switch(code)
             {
                 case ErrorEnum.SoldeInsufissant:
                     res = "Il n'y a pas assez d'argent sur le compte pour effectuer ce " + action;
                     break;
                 case ErrorEnum.MontantDepassePlafond:
-                    res = "Ce " + action + " va dépasser le plafond. Cette action va donc être annulé.";
+                    res = "Ce " + action + " va dépasser le plafond. Cette action va donc être annulée.";
                     break;
                 case ErrorEnum.MontantInvalide:
                     res = "Le montant que vous avez entré n'est pas valide.";
@@ -103,10 +102,10 @@ namespace Or.Business
                     res = "Virement depuis le livret impossible vers un autre compte";
                     break;
                 case ErrorEnum.CarteInconnu:
-                    res = "La carte entrée n'a pas été reconnus.";
+                    res = "La carte entrée n'a pas été reconnue.";
                     break;
                 case ErrorEnum.MontantInf:
-                    res = "Le montant indiqué est inférieur à 0. Ceci est interdis";
+                    res = "Le montant indiqué est inférieur à 0. Ceci est interdit";
                     break;
             }
 

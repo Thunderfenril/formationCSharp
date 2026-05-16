@@ -68,24 +68,24 @@ namespace Or.Pages
 
                     decimal somme = CartePorteur.Historique.Where(x => (x.Horodatage > t.Horodatage.AddDays(-10)) && CartePorteur.ListComptesId.Contains(x.Expediteur)).Select(x => x).ToList().Sum(x => x.Montant);
 
-
+                    // Idée - tu pourrais passer par des constantes plutôt que par des littéraux 
                     if (montant < 0)
                     {
-                        Error.TypeErreur("virement", "Montant0");
-                    } else if ((somme + montant) > CartePorteur.Plafond)
-                    {
-                        Error.TypeErreur("virement", "Plafond");
-                    } else
-                    {
-                        Error.TypeErreur("virement", "Transfert");
+                        Error.TypeErreur(Tools.EcranVirement, "Montant0");
                     }
-
-                    
+                    else if ((somme + montant) > CartePorteur.Plafond)
+                    {
+                        Error.TypeErreur(Tools.EcranVirement, "Plafond");
+                    }
+                    else
+                    {
+                        Error.TypeErreur(Tools.EcranVirement, "Transfert");
+                    }
                 }
             }
             else
             {
-                Error.TypeErreur("virement", "Montant");
+                Error.TypeErreur(Tools.EcranVirement, "Montant");
             }
 
         }

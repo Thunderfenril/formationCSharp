@@ -1,10 +1,5 @@
-﻿using Or.Models;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Or.Business
 {
@@ -21,6 +16,11 @@ namespace Or.Business
 
     public static class Tools
     {
+        public const string EcranAccueil = "accueil";
+        public const string EcranVirement = "virement";
+        public const string EcranRetrait = "retrait";
+        public const string EcranDepot = "depot";
+
         public static DateTime ConversionDate(string horodatage)
         {
             CultureInfo culture = CultureInfo.CurrentCulture;
