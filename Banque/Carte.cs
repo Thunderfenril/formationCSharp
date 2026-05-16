@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Banque
 {
     public class Carte
     {
+        // En vrai, pourquoi ne pas utiliser des struct ? Le fonctionnel n'est pas présent de ce côté (comme Compte)
+
         private long _id;
         private int _plafond;
         private List<Compte> _compteListe;

@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Banque
+﻿namespace Banque
 {
     public class Compte
     {
+        // attributs privés - bonne pratique
         private int _idCompte;
         private string _type;
         private decimal _soldeInit;
@@ -23,10 +18,12 @@ namespace Banque
             _idCarte = idCarte;
         }
 
+        // Propriétés OK
         public long IdCarte { get => _idCarte;}
         public decimal SoldeInit { get => _soldeInit; set => _soldeInit = value; }
         public string Type { get => _type; }
         public int IdCompte { get => _idCompte; }
+        // Le solde peut être modifié en dehors de la classe Compte - pas sécurisé...
         public decimal Solde { get => _solde; set => _solde = value; }
 
         /// <summary>

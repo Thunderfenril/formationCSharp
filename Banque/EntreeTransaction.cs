@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Banque
 {
@@ -70,7 +68,7 @@ namespace Banque
             {
 
                 id = int.Parse(data[0]);
-                if (DateTime.TryParseExact(data[1], "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dateNormalise))
+                if (DateTime.TryParseExact(data[1], "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dateNormalise)) // le seul qui ne provoque pas de plantage !
                 {
                     date = dateNormalise;
                 }
@@ -90,14 +88,15 @@ namespace Banque
                 expediteur = int.Parse(data[3]);
                 recepteur = int.Parse(data[4]);
 
-                if (!res.ContainsKey(id)) // Vérification que l'on n'a pas encore le compte et que son id soit assez long
+                if (!res.ContainsKey(id)) // Vérification que l'on n'a pas encore la transaction et que son id soit assez long
                 {
                     if (montant > 0)
                     {
                         return (true, id, date, montant, expediteur, recepteur);
 
                     }
-                } else
+                }
+                else
                 {
                     err.Add(id, $"id déjà présent");
                 }

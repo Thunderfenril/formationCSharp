@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Banque
 {
@@ -43,7 +41,7 @@ namespace Banque
             long idCarte;
             decimal sommeTransacExpe;
 
-            if(_expediteur != 0 && !dictCompte.ContainsKey(_expediteur)) 
+            if (_expediteur != 0 && !dictCompte.ContainsKey(_expediteur))
             {
                 err.Add(_id, $"L'expediteur n'est pas dans la liste des comptes. Expediteur: {_expediteur}");
                 _statut = "Err"; //Cas spécifique où la transaction est invalide
@@ -58,11 +56,12 @@ namespace Banque
             }
 
             //Dans le cas où l'expéditeur est externe, on a n'a pas d'action où l'on va enlever de l'argent
-            if (_expediteur != 0 )
+            if (_expediteur != 0)
             {
 
                 idCarte = dictCompte[_expediteur].IdCarte; //Récupération de l'id de la carte
                 sommeTransacExpe = dictCarte[idCarte].TransactionListe.Sum(transac => transac.Montant); //Récupération des montants qui ont quitté le compte
+                // Il manque la contrainte sur la plage de dates - 10 jours
 
                 /**
                  * On va retirer de l'argent du compte que si:
@@ -74,10 +73,10 @@ namespace Banque
                  * On considère qu'un plafond valant 0 signifie qu'il n'y a pas de plafond
                  */
                 if (
-                    dictCompte[_expediteur].VerificationSolde(_montant) && 
+                    dictCompte[_expediteur].VerificationSolde(_montant) &&
                     (
                         (sommeTransacExpe + _montant) < dictCarte[idCarte].Plafond || dictCarte[idCarte].Plafond == 0
-                    ) 
+                    )
                     )
                 {
 
@@ -101,7 +100,7 @@ namespace Banque
             // Pour la récepteur on va mettre l'argent su son compte
             if (_recepteur == 0 || dictCompte.ContainsKey(_recepteur))
             {
-                if(_recepteur != 0)
+                if (_recepteur != 0)
                 {
                     dictCompte[_recepteur].Solde += _montant;
                 }
@@ -109,7 +108,7 @@ namespace Banque
                 _statut = "OK";
 
                 //Si l'expediteur n'est pas externe à la banque, on va rajouter cette transaction dans son historique
-                if(_expediteur != 0)
+                if (_expediteur != 0)
                 {
                     idCarte = dictCompte[_expediteur].IdCarte;
                     dictCarte[idCarte].TransactionListe.Add(this);
@@ -135,14 +134,15 @@ namespace Banque
         {
             bool res = false;
 
-            if( _recepteur != 0 &&
+            if (_recepteur != 0 &&
                         dictCompte[_expediteur].IdCarte != dictCompte[_recepteur].IdCarte &&
-                        (dictCompte[_expediteur].Type != "Courant" || dictCompte[_recepteur].Type != "Courant"))
+                        (dictCompte[_expediteur].Type != "Courant" || dictCompte[_recepteur].Type != "Courant")
+               )
             {
                 res = true;
             }
 
-
+            // je ne suis pas sûr que le nom ne soit pas source de confusion - on ne traite pas si true :/ 
             return res;
         }
     }

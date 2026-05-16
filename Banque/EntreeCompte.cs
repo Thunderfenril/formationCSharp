@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Banque
 {
@@ -35,6 +32,7 @@ namespace Banque
 
                         if (compteVerif.Item1 != false)
                         {
+                            // Passer par des struct intermédiaires rendrait plus lisible le passage aux constructeurs (ItemX pas évident)
                             Compte compte = new Compte(compteVerif.Item2, compteVerif.Item3, compteVerif.Item4, compteVerif.Item5);
                             if (dictCarte.ContainsKey(compteVerif.Item3))
                             {
@@ -69,7 +67,7 @@ namespace Banque
 
             if (data.Length > 2) // Vérification que l'on a assez de données
             {
-
+                // Même chose int.TryParse
                 id = int.Parse(data[0]);
                 idCarte = long.Parse(data[1]);
                 type = data[2];
@@ -108,7 +106,7 @@ namespace Banque
                 {
                     err.Add(id, "Cet id existe déjà");
                 }
-            } 
+            }
 
             return (false, 0, 0, "", 0);
         }

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Banque
 {
@@ -28,6 +24,7 @@ namespace Banque
             dictCompte = entree.EntreeCompteCall(inputCompte, dictCarte);
             dictTransac = entree.EntreeTransactionCall(inputTransaction);
 
+            // Pk un dico et pas une liste ? (pour les transactions)
             foreach(KeyValuePair<int, Transaction> transaction in dictTransac)
             {
                 transaction.Value.ExecTransaction(dictCompte, dictCarte, err);

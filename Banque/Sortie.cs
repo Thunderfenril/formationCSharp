@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Globalization;
-using System.Threading.Tasks;
 
 namespace Banque
 {
+    // Bien, même si j'aurai tendance à ne pas stocker les transactions dans un dico, risque d'exception mémoire en PRD 
     public class Sortie
     {
         /// <summary>

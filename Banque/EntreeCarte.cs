@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Banque
 {
@@ -17,8 +13,9 @@ namespace Banque
         public Dictionary<long, Carte> EntreeCarteCSV(string input)
         {
             Dictionary<long, Carte> res = new Dictionary<long, Carte>();
-            Dictionary<long, string> err = new Dictionary<long, string>();
+            Dictionary<long, string> err = new Dictionary<long, string>(); // bonne idée de garder les erreurs
 
+            // Bonne pratique les using 
             using (FileStream file = new FileStream(input, FileMode.Open, FileAccess.Read))
             {
                 using (StreamReader reader = new StreamReader(file))
@@ -31,6 +28,7 @@ namespace Banque
 
                         if (verification.Item1)
                         {
+                            // OK
                             List<Compte> compteListe = new List<Compte>();
                             compteListe = new List<Compte>();
                             Carte carte = new Carte(verification.Item2, verification.Item3, compteListe);
@@ -75,6 +73,8 @@ namespace Banque
                         }
                         else
                         {
+                            // Attention, levée d'exception si erreur. Peut-être plutôt utiliser int.TryParse(data[1], out plafond) qui renvoie un bool
+                            // en l'état le programme arrête la lecture du fichier si mauvais format
                             plafond = int.Parse(data[1]);
                             if (plafond < 500 || plafond > 3000)
                             {
@@ -98,6 +98,7 @@ namespace Banque
             }
             else
             {
+                // Tuple, pourquoi pas
                 return (false, 0, 0);
             }
         }
@@ -108,11 +109,12 @@ namespace Banque
         /// <param name="errDex">Un dictionnaire qui contient l'id de l'objet et le texte d'erreur attribué</param>
         public void ImpressionErreur(Dictionary<long, string> errDex)
         {
-            using(FileStream file = new FileStream(@"C:\Users\FORMATION\Documents\FormationCSharp\formationCSharp\Banque\Files\err.txt", FileMode.Append, FileAccess.Write))
+            // Ce serait intéressant de rendre paramétrable le chemin du fichier d'erreurs, mais OK
+            using (FileStream file = new FileStream(@"C:\Users\FORMATION\Documents\FormationCSharp\formationCSharp\Banque\Files\err.txt", FileMode.Append, FileAccess.Write))
             {
-                using(StreamWriter writer = new StreamWriter(file))
+                using (StreamWriter writer = new StreamWriter(file))
                 {
-                    foreach(KeyValuePair<long, string> err in errDex)
+                    foreach (KeyValuePair<long, string> err in errDex)
                     {
                         writer.WriteLine($"Erreur pour la carte {err.Key}: {err.Value}");
                     }
