@@ -4,22 +4,28 @@ using System.Xml.Serialization;
 
 namespace Or.Models
 {
+    // get et set utilisés correctement
     public class Transaction
     {
-        [XmlElement(ElementName = "Identificant", Order = 1)]
+        [XmlElement(ElementName = "Identifiant", Order = 1)]
         public int IdTransaction { get; set; }
 
         [XmlIgnore]
         public DateTime? Horodatage { get; set; }
 
         [XmlElement(ElementName = "Date", Order = 2)]
-        public string HorodatageString { get { return Horodatage.HasValue ? Horodatage.Value.ToString("dd/MM/yyyy HH:mm:ss") : null; } set { Horodatage = string.IsNullOrEmpty(value) ? (DateTime?)null : DateTime.Parse(value); } }
+        public string HorodatageString
+        {
+            get { return Horodatage.HasValue ? Horodatage.Value.ToString("dd/MM/yyyy HH:mm:ss") : null; }
+            set { Horodatage = string.IsNullOrEmpty(value) ? (DateTime?)null : DateTime.Parse(value); }
+        }
         [XmlIgnore]
         public decimal Montant { get; set; }
 
-        [XmlElement(ElementName = "Montant", Order = 6)]
+        [XmlElement(ElementName = "Montant", Order = 3)]
         public string SoldeSerializable
         {
+            // Bien, utilisation des formats standards
             get => Montant.ToString("C2");
             set
             {
@@ -40,7 +46,7 @@ namespace Or.Models
 
         [XmlIgnore]
         public Operation Type { get { return Tools.TypeTransaction(Expediteur, Destinataire); } }
-        [XmlElement(ElementName = "Type", Order = 3)]
+        [XmlElement(ElementName = "Operation", Order = 6)]
         public string TypeString { get { return _converter.ConvertString(Type); } set { } }
 
         private TypeTransacConverter _converter;

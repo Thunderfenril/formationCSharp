@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace Or.Models
@@ -38,7 +36,7 @@ namespace Or.Models
 
     public class ExportCompte
     {
-        [XmlElement("Identificant")]
+        [XmlElement("Identifiant")]
         public int Id { get; set; }
 
         [XmlElement("Type")]

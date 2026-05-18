@@ -1,10 +1,6 @@
 ﻿using Or.Models;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace Or.Business
@@ -13,7 +9,8 @@ namespace Or.Business
     {
         private readonly XmlSerializer serializer;
         private ExportDonnee _data;
-        public ExportXml(long id) {
+        public ExportXml(long id)
+        {
             serializer = new XmlSerializer(typeof(ExportDonnee));
 
             List<Compte> compteList = SqlRequests.ListeComptesAssociesCarte(id);
@@ -25,7 +22,7 @@ namespace Or.Business
 
         public void SerialiserComptesTransaction(string output)
         {
-            using(FileStream file = File.OpenWrite(output))
+            using (FileStream file = File.OpenWrite(output))
             {
                 serializer.Serialize(file, _data);
             }
