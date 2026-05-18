@@ -18,6 +18,15 @@ namespace Or.Business
 
         static readonly string queryComptesDispo = "SELECT IdtCpt, NumCarte, Solde, TypeCompte FROM COMPTE WHERE NOT IdtCpt=@IdtCpt";
 
+        static readonly string queryBenefWhereCarte     = "SELECT idBenef, IdtCpt, NumCarte, Solde, TypeCompte " +
+                                                          "FROM BENEFICIAIRES " +
+                                                          "LEFT JOIN COMPTE WHERE BENEFICIAIRES.IdCompte = COMPTE.IdtCpt" +
+                                                          "WHERE IdCarte=@IdCarte";
+
+        static readonly string queryInsertBenef         = "INSERT INTO BENEFICIAIRES (IdCarte, IdCompte) VALUES (@IdCarte, @IdCompte)";
+        static readonly string queryDeleteBenef         = "DELETE FROM BENEFICIAIRES WHERE IdCarte=@IdCarte AND IdCompte=@IdCompte";
+        static readonly string queryBenefPotentiels     = "SELECT COUNT(*) FROM BENEFICIAIRES WHERE IdCompte=@IdCompte";
+
         static readonly string queryComptesCarte = "SELECT IdtCpt, NumCarte, Solde, TypeCompte FROM COMPTE WHERE NumCarte=@Carte";
         static readonly string queryTransacCompte = "SELECT IdtTransaction, Horodatage, Montant, CptExpediteur, CptDestinataire, Statut FROM \"TRANSACTION\" WHERE Statut = 'O' AND (CptExpediteur=@IdtCptEx OR CptDestinataire=@IdtCptDest)";
         static readonly string queryCarte = "SELECT NumCarte, PrenomClient, NomClient, PlafondRetrait from CARTE WHERE NumCarte=@Carte";
@@ -416,6 +425,44 @@ namespace Or.Business
             return true;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="numCarte"></param>
+        /// <returns></returns>
+        public static List<Beneficiaire> ListeBeneficiaireAssocieClient(long numCarte)
+        {
+            List<Beneficiaire> comptes = new List<Beneficiaire>();
+
+            string connectionString = ConstructionConnexionString(fileDb);
+
+            using (var connection = new SqliteConnection(connectionString))
+            {
+                connection.Open();
+
+                using (var command = new SqliteCommand(queryBenefWhereCarte, connection))
+                {
+                    command.Parameters.AddWithValue("@IdCarte", numCarte);
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        int idt;
+                        int idBenef;
+
+                        while (reader.Read())
+                        {
+                            idBenef = reader.GetInt32(0);
+                            idt = reader.GetInt32(1);
+
+                            Beneficiaire compte = new Beneficiaire(idBenef, numCarte, idt);
+                            comptes.Add(compte);
+                        }
+                    }
+                }
+            }
+                return comptes;
+        }
+
         private static string ConstructionConnexionString(string fileDb)
         {
             string dossierRef = Directory.GetCurrentDirectory();
@@ -438,6 +485,62 @@ namespace Or.Business
             insertTransac.Parameters.AddWithValue("@CptDest", trans.Destinataire);
             
             return insertTransac;
+        }
+
+        public static void AjoutBeneficiaire(long numCarte, int idCompte)
+        {
+            string connectionString = ConstructionConnexionString(fileDb);
+
+            using(var connection = new SqliteConnection(connectionString))
+            {
+                connection.Open();
+
+                using(var command = new SqliteCommand(queryInsertBenef, connection))
+                {
+                    command.Parameters.AddWithValue("@IdCarte", numCarte);
+                    command.Parameters.AddWithValue("@IdCompte", idCompte);
+
+                    command.ExecuteNonQuery();
+                }
+            }
+            return;
+        }
+
+        public static void SuppressionBeneficiaire(long numCarte, int idCompte)
+        {
+            string connectionString = ConstructionConnexionString(fileDb);
+
+            using (var connection = new SqliteConnection(connectionString))
+            {
+                connection.Open();
+
+                using (var command = new SqliteCommand(queryDeleteBenef, connection))
+                {
+                    command.Parameters.AddWithValue("@IdCarte", numCarte);
+                    command.Parameters.AddWithValue("@IdCompte", idCompte);
+
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        private static bool EstBeneficiairePotentiel(int idCompte)
+        {
+            string connectionString = ConstructionConnexionString(fileDb);
+
+            using (var connection = new SqliteConnection(connectionString))
+            {
+                connection.Open();
+
+                using (var command = new SqliteCommand(queryDeleteBenef, connection))
+                {
+                    command.Parameters.AddWithValue("@IdCompte", idCompte);
+
+                    command.ExecuteNonQuery();
+                }
+            }
+
+            return true;
         }
 
         private static SqliteCommand ConstructionInsertionHistTransaction(SqliteConnection connection, int idtTrans, long numCarte)

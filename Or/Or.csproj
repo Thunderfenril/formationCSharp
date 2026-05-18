@@ -93,6 +93,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\ListeBenef.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Retrait.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -107,6 +111,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Beneficiaire.cs" />
     <Compile Include="Models\Compte.cs" />
     <Compile Include="Business\Error.cs" />
     <Compile Include="Models\Transaction.cs" />
@@ -125,6 +130,9 @@
     </Compile>
     <Compile Include="Pages\HistoriqueTransactions.xaml.cs">
       <DependentUpon>HistoriqueTransactions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ListeBenef.xaml.cs">
+      <DependentUpon>ListeBenef.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Retrait.xaml.cs">
       <DependentUpon>Retrait.xaml</DependentUpon>
