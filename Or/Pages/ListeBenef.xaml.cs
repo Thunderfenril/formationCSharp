@@ -30,6 +30,7 @@ namespace Or.Pages
 
             NomCarte.Text = carte.NomClient;
             PrenomCarte.Text = carte.PrenomClient;
+            IdCarte.Text = numCarte.ToString();
 
             listView.ItemsSource = beneficiaires;
         }
@@ -40,12 +41,31 @@ namespace Or.Pages
         }
 
 
-        private void deleteBenef(object sender, RoutedEventArgs e)
+        private void DeleteBenef(object sender, RoutedEventArgs e)
         {
-            long numCarte = 0;
-            int idCompte = 0;
+            var btn = sender as Button;
+            var benef = btn.DataContext as Beneficiaire;
 
-            SqlRequests.SuppressionBeneficiaire(numCarte, idCompte);
+            SqlRequests.SuppressionBeneficiaire(benef._idCarte, benef.IdCompte);
+            listView.ItemsSource = SqlRequests.ListeBeneficiaireAssocieClient(benef._idCarte);
+        }
+
+        private void AddBenef(object sender, RoutedEventArgs e)
+        {
+            return;
+        }
+
+        private void ListView_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            GridView gridView = listView.View as GridView;
+            if (gridView != null)
+            {
+                double totalWidth = listView.ActualWidth - SystemParameters.VerticalScrollBarWidth;
+                gridView.Columns[0].Width = totalWidth * 0.10; // 10%
+                gridView.Columns[1].Width = totalWidth * 0.30; // 40%
+                gridView.Columns[2].Width = totalWidth * 0.30; // 20%
+                gridView.Columns[3].Width = totalWidth * 0.30; // 20%
+            }
         }
     }
 }

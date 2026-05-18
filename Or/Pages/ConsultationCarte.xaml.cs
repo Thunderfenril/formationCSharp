@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 using Or.Business;
@@ -44,6 +45,11 @@ namespace Or.Pages
             PageFunctionNavigate(new Virement(long.Parse(Numero.Text)));
         }
 
+        private void GoBenef(object sender, RoutedEventArgs e)
+        {
+            PageFunctionNavigate(new ListeBenef(long.Parse(Numero.Text)));
+        }
+
         private void GoRetrait(object sender, RoutedEventArgs e)
         {
             PageFunctionNavigate(new Retrait(long.Parse(Numero.Text)));
@@ -63,6 +69,14 @@ namespace Or.Pages
         void PageFunction_Return(object sender, ReturnEventArgs<long> e)
         {
             listView.ItemsSource = SqlRequests.ListeComptesAssociesCarte(long.Parse(Numero.Text));
+        }
+
+        private void ExportTransactions(object sender, RoutedEventArgs e)
+        {
+            ExportXml exportGestion = new ExportXml(long.Parse(Numero.Text));
+
+            exportGestion.SerialiserComptesTransaction(@"C:\Users\FORMATION\Documents\FormationCSharp\formationCSharp\Or\File\output.xml");
+            return;
         }
 
         private void ListView_SizeChanged(object sender, SizeChangedEventArgs e)

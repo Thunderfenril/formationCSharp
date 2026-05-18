@@ -18,13 +18,14 @@ namespace Or.Business
 
         static readonly string queryComptesDispo = "SELECT IdtCpt, NumCarte, Solde, TypeCompte FROM COMPTE WHERE NOT IdtCpt=@IdtCpt";
 
-        static readonly string queryBenefWhereCarte     = "SELECT idBenef, IdtCpt, NumCarte, Solde, TypeCompte " +
-                                                          "FROM BENEFICIAIRES " +
-                                                          "LEFT JOIN COMPTE WHERE BENEFICIAIRES.IdCompte = COMPTE.IdtCpt" +
+        static readonly string queryBenefWhereCarte     = "SELECT idBenef, IdCompte AS IdCompte, CARTE.NumCarte, PrenomClient AS Prenom, NomClient AS Client " +
+                                                          "FROM BENEFICIAIRE " +
+                                                          "LEFT JOIN COMPTE ON BENEFICIAIRE.IdCompte = COMPTE.IdtCpt " +
+                                                          "LEFT JOIN CARTE ON COMPTE.NumCarte = Carte.NumCarte " +
                                                           "WHERE IdCarte=@IdCarte";
 
-        static readonly string queryInsertBenef         = "INSERT INTO BENEFICIAIRES (IdCarte, IdCompte) VALUES (@IdCarte, @IdCompte)";
-        static readonly string queryDeleteBenef         = "DELETE FROM BENEFICIAIRES WHERE IdCarte=@IdCarte AND IdCompte=@IdCompte";
+        static readonly string queryInsertBenef         = "INSERT INTO BENEFICIAIRE (IdCarte, IdCompte) VALUES (@IdCarte, @IdCompte)";
+        static readonly string queryDeleteBenef         = "DELETE FROM BENEFICIAIRE WHERE IdCarte=@IdCarte AND IdCompte=@IdCompte";
         static readonly string queryBenefPotentiels     = "SELECT COUNT(*) FROM BENEFICIAIRES WHERE IdCompte=@IdCompte";
 
         static readonly string queryComptesCarte = "SELECT IdtCpt, NumCarte, Solde, TypeCompte FROM COMPTE WHERE NumCarte=@Carte";
@@ -448,13 +449,17 @@ namespace Or.Business
                     {
                         int idt;
                         int idBenef;
+                        string nom;
+                        string prenom;
 
                         while (reader.Read())
                         {
                             idBenef = reader.GetInt32(0);
                             idt = reader.GetInt32(1);
+                            nom = reader.GetString(3);
+                            prenom = reader.GetString(4);
 
-                            Beneficiaire compte = new Beneficiaire(idBenef, numCarte, idt);
+                            Beneficiaire compte = new Beneficiaire(idBenef, numCarte, idt, nom, prenom);
                             comptes.Add(compte);
                         }
                     }
@@ -479,7 +484,7 @@ namespace Or.Business
             var insertTransac = connection.CreateCommand();
             insertTransac.CommandText = queryInsertTransac;
 
-            insertTransac.Parameters.AddWithValue("@Horodatage", trans.Horodatage.ToString("dd/MM/yyyy hh:mm:ss"));
+            insertTransac.Parameters.AddWithValue("@Horodatage", trans.Horodatage.Value.ToString("dd/MM/yyyy hh:mm:ss"));
             insertTransac.Parameters.AddWithValue("@Montant", trans.Montant);
             insertTransac.Parameters.AddWithValue("@CptExp", trans.Expediteur);
             insertTransac.Parameters.AddWithValue("@CptDest", trans.Destinataire);

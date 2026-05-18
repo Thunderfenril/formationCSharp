@@ -9,14 +9,21 @@ namespace Or.Models
     public class Beneficiaire
     {
         private int _id { get; set; }
-        private long _idCarte { get; set; }
-        private int _idCompte { get; set; }
+        public long _idCarte { get; }
+        private int _idCompte;
+
+        public string Nom { get; set; }
+        public string Prenom { get; set; }
+
+        public int IdCompte { get => _idCompte; set { _idCompte = value; } }
 
 
-        public Beneficiaire(int Id, long numCarte, int IdCompte) { 
+        public Beneficiaire(int Id, long numCarte, int IdCompte, string nom, string prenom) { 
             _id = Id;
             _idCarte = numCarte;
             _idCompte = IdCompte;
+            Nom = nom;
+            Prenom = prenom;
         }
     }
 }

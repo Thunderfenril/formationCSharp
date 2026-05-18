@@ -65,6 +65,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Business\EuroConverter.cs" />
+    <Compile Include="Business\ExportXml.cs" />
     <Compile Include="Business\IsNegativeConverter.cs" />
     <Compile Include="Business\SqlRequests.cs" />
     <Compile Include="Business\Tools.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="Models\Beneficiaire.cs" />
     <Compile Include="Models\Compte.cs" />
     <Compile Include="Business\Error.cs" />
+    <Compile Include="Models\ExportDonnee.cs" />
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="Pages\Accueil.xaml.cs">
       <DependentUpon>Accueil.xaml</DependentUpon>

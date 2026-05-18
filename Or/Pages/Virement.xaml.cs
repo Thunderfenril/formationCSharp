@@ -66,7 +66,7 @@ namespace Or.Pages
                 else
                 {
 
-                    decimal somme = CartePorteur.Historique.Where(x => (x.Horodatage > t.Horodatage.AddDays(-10)) && CartePorteur.ListComptesId.Contains(x.Expediteur)).Select(x => x).ToList().Sum(x => x.Montant);
+                    decimal somme = CartePorteur.Historique.Where(x => (x.Horodatage > t.Horodatage.Value.AddDays(-10)) && CartePorteur.ListComptesId.Contains(x.Expediteur)).Select(x => x).ToList().Sum(x => x.Montant);
 
                     // Idée - tu pourrais passer par des constantes plutôt que par des littéraux 
                     if (montant < 0)

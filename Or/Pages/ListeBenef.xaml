@@ -52,9 +52,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <TextBlock Text="{Binding IdTransaction}"
-                           Style="{StaticResource TextColumnStyle}"
-                           TextAlignment="Center" />
+                                    <TextBlock Text="{Binding Nom}" TextAlignment="Center" />
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -64,7 +62,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <TextBlock Text="{Binding Type, Converter={StaticResource TypeTransacConverter}}" TextAlignment="Center" />
+                                    <TextBlock Text="{Binding Prenom}" TextAlignment="Center" />
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -85,7 +83,7 @@
 
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button x:Name="DelBenef" Content="Retour" HorizontalAlignment="Stretch" VerticalAlignment="Top" Click="DeleteBenef" Margin="000,0,0,8"/>
+                                <Button x:Name="DelBenef" Content="Supprimer" HorizontalAlignment="Stretch" VerticalAlignment="Top" Click="DeleteBenef" Margin="000,0,0,8"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -95,7 +93,8 @@
         </ListView>
 
         <StackPanel Margin="10" Orientation="Vertical" Grid.Row="2" Grid.Column="0" >
-            <Button x:Name="Retour" Content="Retour" HorizontalAlignment="Stretch" VerticalAlignment="Top" Click="Retour_Click" Margin="000,0,0,8"/>
+            <Button Content="Ajouter un beneficiaire"  Margin="0,0,0,8" HorizontalAlignment="Stretch" VerticalAlignment="Top" Click="AddBenef" />
+            <Button x:Name="Retour" Content="Retour" Click="Retour_Click"/>
         </StackPanel>
     </Grid>
 </PageFunction>

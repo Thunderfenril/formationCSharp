@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<Comptes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Compte>
+    <Identificant>1</Identificant>
+    <Type>Courant</Type>
+    <Solde>1 749,80 €</Solde>
+    <Transactions>
+      <Transaction>
+        <Identificant>12</Identificant>
+        <Date>18/05/2026 10:13:31</Date>
+        <Type>Retrait</Type>
+        <CompteExpediteur>1</CompteExpediteur>
+        <Montant>50,20 €</Montant>
+      </Transaction>
+      <Transaction>
+        <Identificant>11</Identificant>
+        <Date>12/05/2026 02:26:37</Date>
+        <Type>Virement</Type>
+        <CompteExpediteur>2</CompteExpediteur>
+        <CompteDestinataire>1</CompteDestinataire>
+        <Montant>2,00 €</Montant>
+      </Transaction>
+      <Transaction>
+        <Identificant>10</Identificant>
+        <Date>12/05/2026 02:26:23</Date>
+        <Type>Dépôt</Type>
+        <CompteDestinataire>1</CompteDestinataire>
+        <Montant>500,00 €</Montant>
+      </Transaction>
+      <Transaction>
+        <Identificant>9</Identificant>
+        <Date>12/05/2026 02:22:09</Date>
+        <Type>Virement</Type>
+        <CompteExpediteur>1</CompteExpediteur>
+        <CompteDestinataire>2</CompteDestinataire>
+        <Montant>1,00 €</Montant>
+      </Transaction>
+      <Transaction>
+        <Identificant>8</Identificant>
+        <Date>12/05/2026 02:19:35</Date>
+        <Type>Retrait</Type>
+        <CompteExpediteur>1</CompteExpediteur>
+        <Montant>1,00 €</Montant>
+      </Transaction>
+      <Transaction>
+        <Identificant>7</Identificant>
+        <Date>12/05/2026 02:18:07</Date>
+        <Type>Retrait</Type>
+        <CompteExpediteur>1</CompteExpediteur>
+        <Montant>500,00 €</Montant>
+      </Transaction>
+      <Transaction>
+        <Identificant>4</Identificant>
+        <Date>20/08/2025 03:09:01</Date>
+        <Type>Virement</Type>
+        <CompteExpediteur>1</CompteExpediteur>
+        <CompteDestinataire>2</CompteDestinataire>
+        <Montant>100,00 €</Montant>
+      </Transaction>
+      <Transaction>
+        <Identificant>3</Identificant>
+        <Date>20/08/2025 02:47:50</Date>
+        <Type>Retrait</Type>
+        <CompteExpediteur>1</CompteExpediteur>
+        <Montant>100,00 €</Montant>
+      </Transaction>
+      <Transaction>
+        <Identificant>2</Identificant>
+        <Date>11/08/2025 16:32:23</Date>
+        <Type>Virement</Type>
+        <CompteExpediteur>1</CompteExpediteur>
+        <CompteDestinataire>2</CompteDestinataire>
+        <Montant>200,00 €</Montant>
+      </Transaction>
+      <Transaction>
+        <Identificant>1</Identificant>
+        <Date>10/08/2025 10:12:23</Date>
+        <Type>Retrait</Type>
+        <CompteExpediteur>1</CompteExpediteur>
+        <Montant>50,00 €</Montant>
+      </Transaction>
+    </Transactions>
+  </Compte>
+  <Compte>
+    <Identificant>2</Identificant>
+    <Type>Livret</Type>
+    <Solde>6 599,00 €</Solde>
+    <Transactions>
+      <Transaction>
+        <Identificant>11</Identificant>
+        <Date>12/05/2026 02:26:37</Date>
+        <Type>Virement</Type>
+        <CompteExpediteur>2</CompteExpediteur>
+        <CompteDestinataire>1</CompteDestinataire>
+        <Montant>2,00 €</Montant>
+      </Transaction>
+      <Transaction>
+        <Identificant>9</Identificant>
+        <Date>12/05/2026 02:22:09</Date>
+        <Type>Virement</Type>
+        <CompteExpediteur>1</CompteExpediteur>
+        <CompteDestinataire>2</CompteDestinataire>
+        <Montant>1,00 €</Montant>
+      </Transaction>
+      <Transaction>
+        <Identificant>4</Identificant>
+        <Date>20/08/2025 03:09:01</Date>
+        <Type>Virement</Type>
+        <CompteExpediteur>1</CompteExpediteur>
+        <CompteDestinataire>2</CompteDestinataire>
+        <Montant>100,00 €</Montant>
+      </Transaction>
+      <Transaction>
+        <Identificant>2</Identificant>
+        <Date>11/08/2025 16:32:23</Date>
+        <Type>Virement</Type>
+        <CompteExpediteur>1</CompteExpediteur>
+        <CompteDestinataire>2</CompteDestinataire>
+        <Montant>200,00 €</Montant>
+      </Transaction>
+    </Transactions>
+  </Compte>
+</Comptes>

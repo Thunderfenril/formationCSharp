@@ -48,7 +48,7 @@ namespace Or.Models
         /// <returns></returns>
         public bool EstRetraitAutoriseNiveauCarte(Transaction transaction, Compte Expediteur, Compte Destinataire)
         {
-            return EstOperationAutoriseeContraintesComptes(Expediteur, Destinataire) && EstEligibleMaximumRetraitHebdomadaire(transaction.Montant, transaction.Horodatage);
+            return EstOperationAutoriseeContraintesComptes(Expediteur, Destinataire) && EstEligibleMaximumRetraitHebdomadaire(transaction.Montant, (DateTime)transaction.Horodatage);
         }
 
         /// <summary>

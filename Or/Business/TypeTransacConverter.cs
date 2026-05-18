@@ -34,5 +34,28 @@ namespace Or.Business
         {
             throw new NotImplementedException();
         }
+
+        public string ConvertString(Operation value)
+        {
+            string res;
+
+            switch (value)
+            {
+                case Operation.DepotSimple:
+                    res = "Dépôt";
+                    break;
+                case Operation.RetraitSimple:
+                    res = "Retrait";
+                    break;
+                case Operation.InterCompte:
+                    res = "Virement";
+                    break;
+                default:
+                    res = "ERROR";
+                    break;
+            }
+
+            return res;
+        }
     }
 }
