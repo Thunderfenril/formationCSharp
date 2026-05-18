@@ -52,7 +52,18 @@ namespace Or.Pages
 
         private void AddBenef(object sender, RoutedEventArgs e)
         {
-            return;
+            PageFunctionNavigate(new AddBenef(long.Parse(IdCarte.Text)));
+        }
+
+        void PageFunctionNavigate(PageFunction<long> page)
+        {
+            page.Return += new ReturnEventHandler<long>(PageFunction_Return);
+            NavigationService.Navigate(page);
+        }
+
+        void PageFunction_Return(object sender, ReturnEventArgs<long> e)
+        {
+            //listView.ItemsSource = SqlRequests.ListeComptesAssociesCarte(long.Parse(Numero.Text));
         }
 
         private void ListView_SizeChanged(object sender, SizeChangedEventArgs e)

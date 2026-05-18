@@ -20,7 +20,7 @@ namespace Or.Pages
     /// </summary>
     public partial class AddBenef : Page
     {
-        public AddBenef()
+        public AddBenef(long idCarte)
         {
             InitializeComponent();
         }
