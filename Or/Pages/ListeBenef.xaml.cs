@@ -63,7 +63,7 @@ namespace Or.Pages
 
         void PageFunction_Return(object sender, ReturnEventArgs<long> e)
         {
-            //listView.ItemsSource = SqlRequests.ListeComptesAssociesCarte(long.Parse(Numero.Text));
+            listView.ItemsSource = SqlRequests.ListeBeneficiaireAssocieClient(long.Parse(IdCarte.Text));
         }
 
         private void ListView_SizeChanged(object sender, SizeChangedEventArgs e)

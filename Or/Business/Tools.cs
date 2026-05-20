@@ -20,6 +20,7 @@ namespace Or.Business
         public const string EcranVirement = "virement";
         public const string EcranRetrait = "retrait";
         public const string EcranDepot = "depot";
+        public const string EcranAjoutBeneficiaire = "ajoutbenef";
 
         public static DateTime ConversionDate(string horodatage)
         {

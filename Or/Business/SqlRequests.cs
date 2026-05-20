@@ -26,11 +26,12 @@ namespace Or.Business
 
         static readonly string queryInsertBenef         = "INSERT INTO BENEFICIAIRE (IdCarte, IdCompte) VALUES (@IdCarte, @IdCompte)";
         static readonly string queryDeleteBenef         = "DELETE FROM BENEFICIAIRE WHERE IdCarte=@IdCarte AND IdCompte=@IdCompte";
-        static readonly string queryBenefPotentiels     = "SELECT COUNT(*) FROM BENEFICIAIRES WHERE IdCompte=@IdCompte";
+        static readonly string queryBenefPotentiels     = "SELECT * FROM COMPTE WHERE IdtCpt=@IdCompte AND TypeCompte NOT LIKE \"LIVRET\"";
 
         static readonly string queryComptesCarte = "SELECT IdtCpt, NumCarte, Solde, TypeCompte FROM COMPTE WHERE NumCarte=@Carte";
         static readonly string queryTransacCompte = "SELECT IdtTransaction, Horodatage, Montant, CptExpediteur, CptDestinataire, Statut FROM \"TRANSACTION\" WHERE Statut = 'O' AND (CptExpediteur=@IdtCptEx OR CptDestinataire=@IdtCptDest)";
         static readonly string queryCarte = "SELECT NumCarte, PrenomClient, NomClient, PlafondRetrait from CARTE WHERE NumCarte=@Carte";
+        static readonly string queryCompte = "SELECT idtCpt, NumCarte, Solde, TypeCompte from COMPTE WHERE IdtCpt=@IdCompte";
         static readonly string queryTransacCarte = "SELECT tr.IdtTransaction, tr.Horodatage, tr.Montant, tr.CptExpediteur, tr.CptDestinataire, tr.Statut FROM \"TRANSACTION\" tr INNER JOIN HISTTRANSACTION t ON t.IdtTransaction = tr.IdtTransaction WHERE tr.Statut = 'O' AND t.NumCarte=@Carte;";
 
         static readonly string queryInsertTransac = "INSERT INTO \"TRANSACTION\" (Horodatage, Montant, CptExpediteur, CptDestinataire, Statut) VALUES (@Horodatage,@Montant,@CptExp,@CptDest,\"O\")";
@@ -79,6 +80,52 @@ namespace Or.Business
             }
 
             return carte;
+        }
+
+        /// <summary>
+        /// Obtention des infos d'un compte
+        /// </summary>
+        /// <param name="numCarte"></param>
+        /// <returns></returns>
+        public static Compte InfosCompte(int idCompte)
+        {
+            Compte compte = null;
+
+            string connectionString = ConstructionConnexionString(fileDb);
+
+            using (var connection = new SqliteConnection(connectionString))
+            {
+                connection.Open();
+
+                using (var command = new SqliteCommand(queryCompte, connection))
+                {
+                    command.Parameters.AddWithValue("@IdCompte", idCompte);
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        long idtCarte;
+                        TypeCompte type;
+                        decimal solde;
+
+                        if (reader.Read())
+                        {
+                            idtCarte = reader.GetInt64(1);
+                            if(Enum.TryParse<TypeCompte>(reader.GetString(2), out TypeCompte res))
+                            {
+                                type = res;
+                            } else
+                            {
+                                type = TypeCompte.Livret; //Avec le test qui est après cela va créer une erreur et donc arrêt de l'action
+                            }
+                            solde = reader.GetDecimal(2);
+
+                            compte = new Compte(idCompte, idtCarte, type, solde);
+                        }
+                    }
+                }
+            }
+
+            return compte;
         }
 
         /// <summary>
@@ -529,7 +576,7 @@ namespace Or.Business
             }
         }
 
-        private static bool EstBeneficiairePotentiel(int idCompte)
+        public static bool EstBeneficiairePotentiel(int idCompte)
         {
             string connectionString = ConstructionConnexionString(fileDb);
 
@@ -537,15 +584,21 @@ namespace Or.Business
             {
                 connection.Open();
 
-                using (var command = new SqliteCommand(queryDeleteBenef, connection))
+                using (var command = new SqliteCommand(queryBenefPotentiels, connection))
                 {
                     command.Parameters.AddWithValue("@IdCompte", idCompte);
 
-                    command.ExecuteNonQuery();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while(reader.Read())
+                        {
+                            return true;
+                        }
+                    }
                 }
             }
 
-            return true;
+            return false;
         }
 
         private static SqliteCommand ConstructionInsertionHistTransaction(SqliteConnection connection, int idtTrans, long numCarte)

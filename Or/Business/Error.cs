@@ -10,7 +10,11 @@ namespace Or.Business
         SoldeInsufissant = 2,
         TransfertInterdit = 3,
         CarteInconnu = 4,
-        MontantInf = 5
+        MontantInf = 5,
+        TypeCompte = 6,
+        Possede = 7,
+        CompteInconnu = 8,
+        AjoutBenefExistant = 9
     }
 
     // Classe OK
@@ -55,6 +59,22 @@ namespace Or.Business
                     else if (message == "Montant0")
                     {
                         Label(ErrorEnum.MontantInf, "dépôt");
+                    }
+                    break;
+
+                case Tools.EcranAjoutBeneficiaire:
+                    if(message == "Type")
+                    {
+                        Label(ErrorEnum.TypeCompte, "ajout benef");
+                    } else if (message == "Possede")
+                    {
+                        Label(ErrorEnum.Possede, "ajout benef");
+                    } else if(message == "Inconnu")
+                    {
+                        Label(ErrorEnum.CompteInconnu, "ajout benef");
+                    } else if(message == "Pair")
+                    {
+                        Label(ErrorEnum.AjoutBenefExistant, "ajout benef");
                     }
                     break;
 
@@ -106,6 +126,18 @@ namespace Or.Business
                     break;
                 case ErrorEnum.MontantInf:
                     res = "Le montant indiqué est inférieur à 0. Ceci est interdit";
+                    break;
+                case ErrorEnum.CompteInconnu:
+                    res = "Ce compte n'existe pas dans la base de donnee";
+                    break;
+                case ErrorEnum.Possede:
+                    res = "Vous ne pouvez pas ajouter votre propre compte en beneficiaire";
+                    break;
+                case ErrorEnum.TypeCompte:
+                    res = "Vous ne pouvez pas sélectionner un compte de type \"Livret\"";
+                    break;
+                case ErrorEnum.AjoutBenefExistant:
+                    res = "Ce compte a déjà été ajouté";
                     break;
             }
 
