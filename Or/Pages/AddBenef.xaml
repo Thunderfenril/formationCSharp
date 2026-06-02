@@ -13,10 +13,10 @@
     <Grid>
         <TextBlock x:Name="Titre" HorizontalAlignment="Left" Margin="100,85,0,0" TextWrapping="Wrap" Text="Ajout bénéficiaire" VerticalAlignment="Top" FontSize="20" FontWeight="SemiBold"/>
 
-        <Label x:Name="labelM" Content="Numéro du compte" HorizontalAlignment="Left" Margin="100,180,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.132,-0.27"/>
+        <Label x:Name="labelM" Content="N° de compte du nouveau bénéficiaire" HorizontalAlignment="Left" Margin="100,180,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.132,-0.27"/>
         <TextBox x:Name="NCompte" HorizontalAlignment="Left" Margin="100,210,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="22"/>
 
         <Button x:Name="Retour" Content="Retour" HorizontalAlignment="Left" Margin="100,330,0,0" VerticalAlignment="Top" Height="30" Width="90" Click="Retour_Click"/>
-        <Button x:Name="button" Content="Valider" HorizontalAlignment="Left" Margin="555,330,0,0" VerticalAlignment="Top" Height="30" Width="90" Click="ValiderAjout_Click"/>
+        <Button x:Name="button" Content="Ajouter un bénéficiaire" HorizontalAlignment="Left" Margin="555,330,0,0" VerticalAlignment="Top" Height="30" Width="200" Click="ValiderAjout_Click"/>
     </Grid>
 </PageFunction>
